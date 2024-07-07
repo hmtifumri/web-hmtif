@@ -4,6 +4,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="description" content="Himpunan Mahasiswa Teknik Informatika atau yang dikenal dengan HM-TIF adalah sebuah organisasi mahasiswa dalam lingkup program studi Teknik Informatika, Fakultas Ilmu Komputer, Universitas Muhammadiyah Riau. Saat ini HM-TIF memiliki 6 divisi yaitu Kaderisasi & Advokasi, PSDM, Humas, Kerohanian, Kominfo dan Kewirausahaan.">
+    <meta name="keywords" content="HM-TIF, Himpunan Mahasiswa Teknik Informatika, Universitas Muhammadiyah Riau">
+    <meta name="author" content="Divisi Kominfo HM-TIF">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="HM-TIF (Himpunan Mahasiswa Teknik Informatika) UMRI">
+    <meta property="og:description" content="Himpunan Mahasiswa Teknik Informatika atau yang dikenal dengan HM-TIF adalah sebuah organisasi mahasiswa dalam lingkup program studi Teknik Informatika, Fakultas Ilmu Komputer, Universitas Muhammadiyah Riau. Saat ini HM-TIF memiliki 6 divisi yaitu Kaderisasi & Advokasi, PSDM, Humas, Kerohanian, Kominfo dan Kewirausahaan.">
+    <meta property="og:image" content="{{ asset('assets/img/banner/2.png') }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta name="twitter:card" content="{{ asset('assets/img/banner/2.png') }}">
 
     <title>{{ isset($title) ? $title . ' |' : '' }} HM-TIF (Himpunan Mahasiswa Teknik Informatika) UMRI</title>
     <link rel="shortcut icon" href="{{ asset('assets/img/logo.png') }}" type="image/x-icon">

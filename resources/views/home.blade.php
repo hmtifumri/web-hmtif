@@ -39,6 +39,23 @@
                     },
                 },
             }).mount(window.splide.Extensions);
+
+            var splideJalaNusa = new Splide('#hmtif-slider', {
+                type: 'loop',
+                perPage: 3,
+                perMove: 1,
+                drag: false,
+                arrows: false,
+                gap: '0',
+                pagination: false,
+                focus: 'center',
+                autoScroll: {
+                    speed: 1,
+                    pauseOnHover: false,
+                },
+            });
+
+            splideJalaNusa.mount(window.splide.Extensions);
         </script>
     @endpush
 
@@ -321,6 +338,34 @@
         </div>
     </section>
     {{-- end artikel --}}
+
+    <section class="pb-10 lg:pb-24">
+        f<div class="container px-5 mx-auto">
+            <div class="relative">
+                <div id="hmtif-slider" class="splide" aria-label="HM-TIF UMRI">
+                    <div class="splide__track">
+                        <ul class="splide__list">
+                            <li class="splide__slide !mr-5">
+                                <div
+                                    class="text-5xl lg:text-[85px] text-[#bcc3d5] dark:text-zinc-800 font-medium select-none">
+                                    HM-TIF UMRI
+                                    <span class="text-navy2 dark:text-navy select-none inline-block">
+                                        •
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div
+                    class="absolute left-0 bottom-0 top-0 bg-gradient-to-r from-[#EBF0F9] via-[#EBF0F9]/70 to-transparent dark:from-zinc-950 dark:via-zinc-950/70 dark:to-transparent w-20 sm:w-32 lg:w-56 h-full">
+                </div>
+                <div
+                    class="absolute right-0 bottom-0 top-0 bg-gradient-to-l from-[#EBF0F9] via-[#EBF0F9]/70 to-transparent dark:from-zinc-950 dark:via-zinc-950/70 dark:to-transparent w-20 sm:w-32 lg:w-56 h-full">
+                </div>
+            </div>
+        </div>
+    </section>
 
 
     {{-- call to action --}}

@@ -35,15 +35,14 @@ return [
             'root' => storage_path('app'),
             'throw' => false,
         ],
-
+    
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'root' => public_path(),
+            'url' => env('APP_URL') . '/',
             'visibility' => 'public',
-            'throw' => false,
         ],
-
+        
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

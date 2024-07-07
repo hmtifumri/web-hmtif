@@ -6,11 +6,12 @@
                     <img src="{{ asset('assets/img/logo.png') }}" alt="Logo {{ config('app.name') }}"
                         class="mx-auto lg:mx-0 w-28 2xl:w-32">
                     <h2
-                        class="text-2xl mx-auto md:text-3xl max-w-sm text-center lg:text-left mt-6 lg:mt-0 font-extrabold text-navy dark:text-navy3 uppercase font-plusjakartasans">
+                        class="text-2xl mx-auto md:mx-0 md:text-3xl max-w-sm text-center lg:text-left mt-6 lg:mt-0 font-extrabold text-navy dark:text-navy3 uppercase font-plusjakartasans">
                         Himpunan Mahasiswa Teknik
                         Informatika</h2>
                 </div>
-                <p class="max-w-md mx-auto lg:mt-6 text-[#6B6B6B] dark:text-zinc-400 text-center lg:text-left mt-3">
+                <p
+                    class="max-w-md mx-auto lg:mx-0 lg:mt-6 text-[#6B6B6B] dark:text-zinc-400 text-center lg:text-left mt-3">
                     HM-TIF adalah
                     sebuah
                     organisasi dari Teknik
@@ -65,23 +66,23 @@
                 </ul>
                 <ul class="flex flex-wrap justify-center lg:justify-start items-center gap-8 gap-y-3.5 lg:gap-y-0">
                     <li>
-                        <a href=""
+                        <a href="{{ route('home') }}" wire:navigate.hover
                             class="text-[#515151] hover:text-navy dark:text-zinc-400 dark:hover:text-navy3 duration-300 font-medium font-plusjakartasans">Beranda</a>
                     </li>
                     <li>
-                        <a href=""
+                        <a href="{{ route('profil') }}" wire:navigate.hover
                             class="text-[#515151] hover:text-navy dark:text-zinc-400 dark:hover:text-navy3 duration-300 font-medium font-plusjakartasans">Profil</a>
                     </li>
                     <li>
-                        <a href=""
+                        <a href="{{ route('kepengurusan') }}" wire:navigate.hover
                             class="text-[#515151] hover:text-navy dark:text-zinc-400 dark:hover:text-navy3 duration-300 font-medium font-plusjakartasans">Kepengurusan</a>
                     </li>
                     <li>
-                        <a href=""
+                        <a href="{{ route('galeri') }}" wire:navigate.hover
                             class="text-[#515151] hover:text-navy dark:text-zinc-400 dark:hover:text-navy3 duration-300 font-medium font-plusjakartasans">Galeri</a>
                     </li>
                     <li>
-                        <a href=""
+                        <a href="{{ route('artikel') }}" wire:navigate.hover
                             class="text-[#515151] hover:text-navy dark:text-zinc-400 dark:hover:text-navy3 duration-300 font-medium font-plusjakartasans">Artikel</a>
                     </li>
                 </ul>

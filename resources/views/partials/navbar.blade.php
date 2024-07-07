@@ -57,7 +57,7 @@
 </div>
 
 <header
-    class="flex flex-wrap sm:justify-start sm:flex-nowrap bg-white rounded-b-3xl sm:bg-transparent sm:rounded-b-none z-50 w-full py-4 mb-6 sm:mb-0 dark:bg-zinc-800 lg:dark:bg-transparent">
+    class="flex flex-wrap sm:justify-start sm:flex-nowrap bg-white rounded-b-3xl sm:bg-transparent sm:rounded-b-none z-50 w-full py-4 mb-6 sm:mb-0 dark:bg-zinc-800 sm:dark:bg-transparent">
     <nav class="max-w-7xl w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between" aria-label="Global">
         <div class="flex items-center justify-between">
             <div>
