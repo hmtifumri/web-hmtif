@@ -34,8 +34,8 @@
                                 </div>
                             @else
                                 <div>
-                                    <img src="{{ asset('assets/img/kepengurusan/' . str_replace('/', '-', $user->periode->periode) . '/' . $this->user->divisi . '/' . $user->gambar) }}"
-                                        alt="{{ $user->name }}" class="w-24 h-24 rounded-full">
+                                    <img src="{{ asset($user->gambar) }}" alt="{{ $user->name }}"
+                                        class="w-24 h-24 rounded-full">
                                 </div>
                             @endif
                         @endif
@@ -44,8 +44,8 @@
                                 :value="__('Pilih Gambar')" />
                             <input type="file" class="hidden" id="gambar" wire:model="gambar" autocomplete="off"
                                 accept="image/*" onchange="openCropper(event)">
-                            <div class="animate-spin mt-1 inline-block size-4 border-[2px] border-current border-t-transparent text-blue-600 rounded-full" wire:loading wire:target="gambar"
-                                role="status" aria-label="loading">
+                            <div class="animate-spin mt-1 inline-block size-4 border-[2px] border-current border-t-transparent text-blue-600 rounded-full"
+                                wire:loading wire:target="gambar" role="status" aria-label="loading">
                                 <span class="sr-only">Loading...</span>
                             </div>
                             @error('gambar')
@@ -97,7 +97,7 @@
                                 <x-input-label for="jabatan" :value="__('Jabatan')" />
                                 <select wire:model="jabatan" id="jabatan" class="form-input">
                                     <option value="">{{ __('Pilih Jabatan') }}</option>
-                                    @if ($divisi == 'ksb')
+                                    @if ($divisi == array_search('ksb', $divisiOptions))
                                         @foreach ($ksbJabatanOptions as $key => $value)
                                             <option value="{{ $key }}">{{ $value }}</option>
                                         @endforeach
@@ -169,6 +169,15 @@
                             {{ __('Crop & Save') }}
                         </button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-wrap -mx4">
+        <div class="w-full xl:w-1/2 p-4 order-2 xl:order-1">
+            <div class="bg-white border p-8 rounded-xl">
+                <div class="mb-4">
+                    <h1 class="dashboard-title">Keamanan</h1>
                 </div>
             </div>
         </div>

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone')->nullable();
-            $table->string('divisi');
+            $table->foreignId('divisi_id')->constrained('divisi')->onUpdate('cascade')->onDelete('cascade');
             $table->string('jabatan');
             $table->string('gender');
             $table->foreignId('periode_id')->constrained('periode')->onUpdate('cascade')->onDelete('cascade');

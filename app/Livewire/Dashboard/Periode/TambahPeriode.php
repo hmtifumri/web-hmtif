@@ -37,7 +37,7 @@ class TambahPeriode extends Component
                 'status' => 'tidak aktif',
             ]);
             session()->flash('success', 'Periode berhasil ditambahkan');
-            return $this->redirect(route('periode.dashboard'));
+            return $this->redirect(route('periode.dashboard'), navigate:true);
         }
     }
 

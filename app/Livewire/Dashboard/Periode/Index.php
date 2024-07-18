@@ -5,6 +5,7 @@ namespace App\Livewire\Dashboard\Periode;
 use Livewire\Component;
 use App\Models\Periode;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Locked;
 
@@ -39,6 +40,7 @@ class Index extends Component
         }
 
         $users = User::where('periode_id', $periode->id)->get();
+        $divisiImages = DB::table('divisi-image')->where('periode_id', $periode->id)->get();
 
         foreach ($users as $user) {
             // Hapus gambar user jika ada
@@ -49,11 +51,21 @@ class Index extends Component
             $user->delete();
         }
 
+        foreach ($divisiImages as $divisiImage) {
+            // Hapus gambar divisi jika ada
+            if ($divisiImage->image) {
+                $path = $divisiImage->image;
+                Storage::disk('public')->delete($path);
+            }
+            DB::table('divisi-image')->where('id', $divisiImage->id)->delete();
+        }
+
         Storage::disk('public')->deleteDirectory('assets/img/kepengurusan/' . str_replace('/', '-', $periode->periode));
 
         $periode->delete();
 
-        $this->redirect(route('periode.dashboard'));
+        session()->flash('success', 'Periode berhasil dihapus');
+        $this->redirect(route('periode.dashboard'), navigate:true);
     }
 
     public function render()

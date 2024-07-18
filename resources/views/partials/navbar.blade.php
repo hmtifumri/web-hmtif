@@ -115,8 +115,41 @@
                     href="{{ route('home') }}" wire:navigate.hover aria-current="page">Beranda</a>
                 <a class="{{ request()->routeIs('profil') ? 'text-navy2 dark:text-navy3 sm:border-b-2 sm:border-navy2 font-semibold' : 'font-medium text-zinc-600 dark:text-zinc-400 hover:text-navy2 dark:hover:text-navy2 ' }}"
                     href="{{ route('profil') }}" wire:navigate.hover>Profil</a>
-                <a class="{{ request()->routeIs('kepengurusan') ? 'text-navy2 dark:text-navy3 sm:border-b-2 sm:border-navy2 font-semibold' : 'font-medium text-zinc-600 dark:text-zinc-400 hover:text-navy2 dark:hover:text-navy2 ' }}"
-                    href="{{ route('kepengurusan') }}" wire:navigate.hover>Kepengurusan</a>
+                {{-- <a class="{{ request()->routeIs('kepengurusan') ? 'text-navy2 dark:text-navy3 sm:border-b-2 sm:border-navy2 font-semibold' : 'font-medium text-zinc-600 dark:text-zinc-400 hover:text-navy2 dark:hover:text-navy2 ' }}"
+                    href="{{ route('kepengurusan') }}" wire:navigate.hover>Kepengurusan</a> --}}
+
+                @php
+                    $periode = App\Models\Periode::orderBy('periode', 'asc')->get();
+                    $periodeAktif = App\Models\Periode::where('status', 'aktif')->first();
+                @endphp
+
+                <div class="hs-dropdown [--trigger:hover]">
+                    <a href="{{ route('kepengurusan', str_replace('/', '-', $periodeAktif->periode)) }}"
+                        wire:navigate.hover type="button"
+                        class="flex items-center {{ request()->routeIs('kepengurusan') ? 'text-navy2 dark:text-navy3 sm:border-b-2 sm:border-navy2 font-semibold' : 'font-medium text-zinc-600 dark:text-zinc-400 hover:text-navy2 dark:hover:text-navy2 ' }}">
+                        Kepengurusan
+                        <svg class="ms-1 flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24"
+                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m6 9 6 6 6-6" />
+                        </svg>
+                    </a>
+
+                    <div
+                        class="hs-dropdown-menu w-48 transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden z-10">
+                        <div
+                            class="hs-dropdown-open:ease-in hs-dropdown-open:opacity-100 hs-dropdown-open:scale-100 transition ease-out opacity-0 scale-95 duration-200 -mt-2.5 origin-top-left bg-white shadow-md rounded-lg p-2 dark:bg-neutral-800 dark:border dark:border-neutral-700 dark:divide-neutral-700">
+                            @foreach ($periode as $p)
+                                <a class="{{ request()->is('kepengurusan/' . str_replace('/', '-', $p->periode)) ? 'bg-navy3 text-white dark:bg-navy' : 'text-gray-800 hover:bg-gray-100' }}
+                                flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300"
+                                    href="{{ route('kepengurusan', str_replace('/', '-', $p->periode)) }}"
+                                    wire:navigate>
+                                    {{ $p->periode }}
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
                 <a class="{{ request()->routeIs('galeri') ? 'text-navy2 dark:text-navy3 sm:border-b-2 sm:border-navy2 font-semibold' : 'font-medium text-zinc-600 dark:text-zinc-400 hover:text-navy2 dark:hover:text-navy2 ' }}"
                     href="{{ route('galeri') }}" wire:navigate.hover>Galeri</a>
                 <a class="{{ request()->routeIs('artikel') ? 'text-navy2 dark:text-navy3 sm:border-b-2 sm:border-navy2 font-semibold' : 'font-medium text-zinc-600 dark:text-zinc-400 hover:text-navy2 dark:hover:text-navy2 ' }}"

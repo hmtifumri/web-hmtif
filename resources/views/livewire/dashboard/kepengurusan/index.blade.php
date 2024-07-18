@@ -13,20 +13,19 @@
     </div>
 
     <div class="flex flex-col mt-10" wire:loading.class="opacity-50">
-        @empty(count($pengurus) > 0)
-            <div>
-                <p class="text-center text-gray-500">Tidak ada data</p>
-            </div>
-        @else
-            @foreach ($pengurus->groupBy('divisi') as $division => $members)
-                <div class="mb-6 last-of-type:mb-0 overflow-x-auto">
+        @if (count($pengurus) > 0)
+            @foreach ($pengurus->groupBy('divisi_id') as $divisionId => $members)
+                @php
+                    $division = \App\Models\Divisi::find($divisionId);
+                @endphp
+                <div class="mb-6 last-of-type:mb-0 overflow-x-auto" wire:transition.scale.origin.top wire:key='{{ $divisionId }}'>
                     <div>
                         <div class="mb-2">
-                            <h2 class="text-xl font-semibold capitalize">{{ $division }}</h2>
+                            <h2 class="text-xl font-semibold capitalize">{{ $division->singkatan }}</h2>
                         </div>
                         <div class="p-1.5 min-w-full inline-block align-middle">
                             <div class="border rounded-lg border-gray-300 overflow-hidden">
-                                @foreach ($members->groupBy('divisi') as $jabatan => $users)
+                                @foreach ($members->groupBy('divisi_id') as $jabatan => $users)
                                     <div>
                                         <table class="min-w-full divide-y divide-gray-200">
                                             <thead>
@@ -60,7 +59,7 @@
                                                             {{ str_replace('_', ' ', $user->jabatan) }}
                                                         </td>
                                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                                                            {{ $user->no_hp ?? '-' }}
+                                                            {{ $user->phone ?? '-' }}
                                                         </td>
                                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                                                             {{ $user->gender == 'L' ? 'Laki-laki' : 'Perempuan' }}
@@ -69,10 +68,12 @@
                                                             class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                                                             <div class="inline-flex items-center gap-3">
                                                                 <div>
-                                                                    <a href="{{ route('user.edit', encrypt($user->id)) }}" class="hover:underline text-teal-600">Edit</a>
+                                                                    <a href="{{ route('user.edit', encrypt($user->id)) }}"
+                                                                        class="hover:underline text-teal-600">Edit</a>
                                                                 </div>
                                                                 <div>
-                                                                    <a href="" class="hover:underline text-rose-600">Delete</a>
+                                                                    <a href=""
+                                                                        class="hover:underline text-rose-600">Delete</a>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -87,6 +88,11 @@
                     </div>
                 </div>
             @endforeach
-        @endempty
+        @else
+            <div>
+                <p class="text-center text-gray-500">Tidak ada data</p>
+            </div>
+        @endif
     </div>
+    
 </div>

@@ -16,7 +16,7 @@
 <div id="docs-sidebar"
     class="hs-overlay [--auto-close:lg] hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 start-0 bottom-0 z-[60] w-3/4 md:w-64 bg-white border-e border-gray-200 pt-7 pb-10 overflow-y-auto lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 dark:bg-neutral-800 dark:border-neutral-700">
     <div class="px-6">
-        <a class="flex-none" href="#" aria-label="Brand">
+        <a class="flex-none" href="{{ route('home') }}" aria-label="Brand" wire:navigate>
             <img src="{{ asset('assets/img/logo.png') }}" class="mx-auto w-16" alt="{{ config('app.name') }}">
         </a>
     </div>
@@ -24,7 +24,7 @@
         <ul class="space-y-1.5">
             <li>
                 <a class="{{ request()->routeIs('dashboard') ? 'bg-blue-600 text-white' : 'hover:bg-gray-100' }} flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg  dark:bg-neutral-700 dark:text-white"
-                    href="{{ route('dashboard') }}">
+                    href="{{ route('dashboard') }}" wire:navigate>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-5">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -34,10 +34,10 @@
                 </a>
             </li>
 
-            @if (Auth::user()->divisi == 'admin')
+            @if (Auth::user()->jabatan == 'admin')
                 <li>
-                    <a class="{{ request()->routeIs('periode.dashboard') ? 'bg-blue-600 text-white' : 'hover:bg-gray-100' }} flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg  dark:bg-neutral-700 dark:text-white"
-                        href="{{ route('periode.dashboard') }}">
+                    <a class="{{ request()->is('dashboard/periode*') ? 'bg-blue-600 text-white' : 'hover:bg-gray-100' }} flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg  dark:bg-neutral-700 dark:text-white"
+                        href="{{ route('periode.dashboard') }}" wire:navigate>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-5">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -48,7 +48,7 @@
                 </li>
                 <li>
                     <a class="{{ request()->routeIs('kepengurusan.dashboard') ? 'bg-blue-600 text-white' : 'hover:bg-gray-100' }} flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg  dark:bg-neutral-700 dark:text-white"
-                        href="{{ route('kepengurusan.dashboard') }}">
+                        href="{{ route('kepengurusan.dashboard') }}" wire:navigate>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-5">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -59,7 +59,7 @@
                 </li>
                 <li>
                     <a class="{{ request()->routeIs('pengaturan.pendaftaran') ? 'bg-blue-600 text-white' : 'hover:bg-gray-100' }} flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg  dark:bg-neutral-700 dark:text-white"
-                        href="{{ route('pengaturan.pendaftaran') }}">
+                        href="{{ route('pengaturan.pendaftaran') }}" wire:navigate>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-5">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -71,7 +71,7 @@
             @else
                 <li>
                     <a class="{{ request()->routeIs('user.edit') ? 'bg-blue-600 text-white' : 'hover:bg-gray-100' }} flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg  dark:bg-neutral-700 dark:text-white"
-                        href="{{ route('user.edit', encrypt(Auth::user()->id)) }}">
+                        href="{{ route('user.edit', encrypt(Auth::user()->id)) }}" wire:navigate>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-5">
                             <path stroke-linecap="round" stroke-linejoin="round"

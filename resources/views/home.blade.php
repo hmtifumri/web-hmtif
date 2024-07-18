@@ -77,7 +77,7 @@
     </section>
 
     {{-- banner --}}
-    <section class="relative pb-10 lg:pb-16">
+    <section class="relative pb-10 lg:pb-16" wire:ignore>
         <div class="container px-5 mx-auto ">
             <div id="banner" class="splide" aria-label="Banner">
                 <div class="splide__track">
@@ -211,12 +211,15 @@
                 </div>
             </div>
             @php
-                $divisions = ['kaderisasi & advokasi', 'psdm', 'kerohanian', 'humas', 'kominfo', 'kwu'];
+                $divisions = ['kaderisasi-advokasi', 'psdm', 'kerohanian', 'humas', 'kominfo', 'kwu'];
             @endphp
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                @php
+                    $periode = App\Models\Periode::where('status', 'aktif')->first();
+                @endphp
                 @foreach ($divisions as $division)
-                    <a href=""
-                        class="text-center px-8 uppercase text-lg sm:text-2xl lg:text-4xl text-navy2 bg-[#486DA3]/15 rounded-3xl flex items-center justify-center h-[160px] font-extrabold font-plusjakartasans hover:bg-navy2 hover:text-white duration-300 dark:bg-transparent dark:bg-gradient-to-br dark:from-zinc-800/80 dark:to-zinc-900 dark:text-zinc-600 dark:hover:text-zinc-400 dark:hover:to-zinc-800 dark:transition-all">{{ $division }}</a>
+                    <a href="{{ route('divisi.show', [str_replace('/', '-', $periode->periode), $division]) }}" wire:navigate 
+                        class="text-center px-8 uppercase text-lg sm:text-2xl lg:text-4xl text-navy2 bg-[#486DA3]/15 rounded-3xl flex items-center justify-center h-[160px] font-extrabold font-plusjakartasans hover:bg-navy2 hover:text-white duration-300 dark:bg-transparent dark:bg-gradient-to-br dark:from-zinc-800/80 dark:to-zinc-900 dark:text-zinc-600 dark:hover:text-zinc-400 dark:hover:to-zinc-800 dark:transition-all">{{ $division == 'kaderisasi-advokasi' ? 'Kaderisasi & Advokasi' : $division }}</a>
                 @endforeach
             </div>
         </div>
@@ -347,7 +350,7 @@
                         <ul class="splide__list">
                             <li class="splide__slide !mr-5">
                                 <div
-                                    class="text-5xl lg:text-[85px] text-[#bcc3d5] dark:text-zinc-800 font-medium select-none">
+                                    class="text-5xl font-bold lg:text-[85px] text-[#bcc3d5] dark:text-zinc-800  font-plusjakartasans select-none">
                                     HM-TIF UMRI
                                     <span class="text-navy2 dark:text-navy select-none inline-block">
                                         •

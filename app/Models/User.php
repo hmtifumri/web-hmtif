@@ -11,7 +11,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-  
+
 
     /**
      * The attributes that are mass assignable.
@@ -50,7 +50,13 @@ class User extends Authenticatable
         ];
     }
 
-    public function periode() {
+    public function periode()
+    {
         return $this->belongsTo(Periode::class);
+    }
+
+    public function divisi()
+    {
+        return $this->belongsTo(Divisi::class);
     }
 }

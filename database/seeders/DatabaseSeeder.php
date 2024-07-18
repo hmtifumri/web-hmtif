@@ -2,10 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Divisi;
 use App\Models\User;
 use App\Models\Periode;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
@@ -17,20 +19,63 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
+        $divisi = [
+            [
+                'divisi' => 'admin',
+                'singkatan' => 'admin',
+            ],
+            [
+                'divisi' => 'Ketua Sekretaris Bendahara',
+                'singkatan' => 'ksb',
+            ],
+            [
+                'divisi' => 'Kaderisasi dan Advokasi',
+                'singkatan' => 'kaderisasi-advokasi',
+            ],
+            [
+                'divisi' => 'Pemberdayaan Sumber Daya Mahasiswa dan Riset Teknologi',
+                'singkatan' => 'psdm',
+            ],
+            [
+                'divisi' => 'Kerohanian',
+                'singkatan' => 'kerohanian',
+            ],
+            [
+                'divisi' => 'Hubungan Masyarakat',
+                'singkatan' => 'humas',
+            ],
+            [
+                'divisi' => 'Komunikasi dan Informasi',
+                'singkatan' => 'kominfo',
+            ],
+            [
+                'divisi' => 'Kewirausahaan',
+                'singkatan' => 'kwu',
+            ]
+        ];
+
+        foreach ($divisi as $item) {
+            DB::table('divisi')->insert([
+                'divisi' => $item['divisi'],
+                'singkatan' => $item['singkatan'],
+                'created_at' => now(),
+            ]);
+        }
+
         Periode::create([
             'periode' => '2023/2024',
             'status' => 'aktif'
-         ]);
+        ]);
         Periode::create([
             'periode' => '2024/2025',
             'status' => 'tidak aktif'
-         ]);
-         
+        ]);
+
         User::factory()->create([
             'name' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('admin123'),
-            'divisi' => 'admin',
+            'divisi_id' => 1,
             'jabatan' => 'admin',
             'gender' => 'L',
             'periode_id' => 1,
@@ -41,7 +86,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Ihkram Mulya',
             'email' => 'ihkram@gmail.com',
             'password' => bcrypt('ihkram123'),
-            'divisi' => 'ksb',
+            'divisi_id' => 2,
             'jabatan' => 'bupati',
             'gender' => 'L',
             'periode_id' => 1,
@@ -51,7 +96,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Angga Yudha Wibowo',
             'email' => 'angga@gmail.com',
             'password' => bcrypt('angga123'),
-            'divisi' => 'ksb',
+            'divisi_id' => 2,
             'jabatan' => 'wakil_bupati',
             'gender' => 'L',
             'periode_id' => 1,
@@ -61,17 +106,27 @@ class DatabaseSeeder extends Seeder
             'name' => 'Fahriasalsabilla',
             'email' => 'caca@gmail.com',
             'password' => bcrypt('caca123'),
-            'divisi' => 'ksb',
+            'divisi_id' => 2,
             'jabatan' => 'sekum',
             'gender' => 'P',
             'periode_id' => 1,
             'nim' => '230401092'
         ]);
         User::factory()->create([
+            'name' => 'Paula Carnelian',
+            'email' => 'paula@gmail.com',
+            'password' => bcrypt('paula123'),
+            'divisi_id' => 2,
+            'jabatan' => 'sekretaris',
+            'gender' => 'P',
+            'periode_id' => 1,
+            'nim' => '230401096'
+        ]);
+        User::factory()->create([
             'name' => 'Fauza Addinunnisa',
             'email' => 'fauza@gmail.com',
             'password' => bcrypt('fauza123'),
-            'divisi' => 'ksb',
+            'divisi_id' => 2,
             'jabatan' => 'bendum',
             'gender' => 'P',
             'periode_id' => 1,
@@ -81,7 +136,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Diva Salsabilla',
             'email' => 'diva@gmail.com',
             'password' => bcrypt('diva123'),
-            'divisi' => 'kominfo',
+            'divisi_id' => 7,
             'jabatan' => 'kadiv',
             'gender' => 'P',
             'periode_id' => 1,
@@ -91,7 +146,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Muhammad Farhan',
             'email' => 'farhan@gmail.com',
             'password' => bcrypt('farhan123'),
-            'divisi' => 'kominfo',
+            'divisi_id' => 7,
             'jabatan' => 'anggota',
             'gender' => 'L',
             'periode_id' => 1,

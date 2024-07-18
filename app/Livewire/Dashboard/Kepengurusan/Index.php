@@ -47,10 +47,10 @@ class Index extends Component
     public function loadPengurus()
     {
         $query = User::where('periode_id', $this->periodeId)
-                     ->where('divisi', '!=', 'admin');
+                     ->where('jabatan', '!=', 'admin');
 
         if ($this->divisionFilter && $this->divisionFilter !== 'semua') {
-            $query->where('divisi', $this->divisionFilter);
+            $query->where('divisi_id', $this->divisionFilter);
         }
 
         if ($this->search) {
@@ -64,7 +64,7 @@ class Index extends Component
         // Menyusun pengurus sesuai urutan jabatan yang diinginkan
         $this->pengurus = $query->orderByRaw("
             CASE 
-                WHEN divisi = 'ksb' THEN
+                WHEN divisi_id = 2 THEN
                     CASE 
                         WHEN jabatan = 'bupati' THEN 1
                         WHEN jabatan = 'wakil bupati' THEN 2

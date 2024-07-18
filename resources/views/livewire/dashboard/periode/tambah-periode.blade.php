@@ -1,5 +1,4 @@
 <div>
-    @include('components.alert')
     <form wire:submit.prevent="tambahPeriode">
         <div class="p-4">
             <div>

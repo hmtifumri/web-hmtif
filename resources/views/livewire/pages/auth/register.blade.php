@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
+use App\Models\Divisi;
 
 new #[Layout('layouts.guest')] class extends Component {
     #[Validate('required|string|max:255|unique:users,nim')]
@@ -46,16 +47,9 @@ new #[Layout('layouts.guest')] class extends Component {
     public function mount()
     {
         $this->periode_id = Periode::where('status', 'aktif')->first();
+        $divisi = Divisi::where('divisi', '!=', 'admin')->get();
 
-        $this->divisiOptions = [
-            'ksb' => 'KSB',
-            'kaderisasi_advokasi' => 'Kaderisasi Advokasi',
-            'psdm' => 'Pemberdayaan Sumber Daya Mahasiswa',
-            'kerohanian' => 'Kerohanian',
-            'humas' => 'Humas',
-            'kominfo' => 'Kominfo',
-            'kwu' => 'Kewirausahaan',
-        ];
+        $this->divisiOptions = $divisi;
 
         $this->ksbJabatanOptions = [
             'bupati' => 'Bupati',
@@ -85,12 +79,17 @@ new #[Layout('layouts.guest')] class extends Component {
      */
     public function register(): void
     {
+        $divisi = Divisi::where('singkatan', $this->divisi)->first();
+
         $validated = $this->validate();
 
         $validated['password'] = Hash::make($validated['password']);
         $validated['periode_id'] = $this->periode_id->id;
+        $validated['divisi_id'] = $divisi->id;
 
-        event(new Registered(($user = User::create($validated))));
+        event(new Registered((
+            $user = User::create($validated)
+        )));
 
         Auth::login($user);
 
@@ -167,7 +166,7 @@ new #[Layout('layouts.guest')] class extends Component {
                     <select wire:model="divisi" id="divisi" class="form-input" wire:model.change='divisi'>
                         <option value="">{{ __('Pilih Divisi') }}</option>
                         @foreach ($divisiOptions as $key => $value)
-                            <option value="{{ $key }}">{{ $value }}</option>
+                            <option value="{{ $value->singkatan }}">{{ $value->divisi }}</option>
                         @endforeach
                     </select>
                     @error('divisi')

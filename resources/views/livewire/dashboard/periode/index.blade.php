@@ -1,4 +1,5 @@
 <div class="overflow-hidden">
+    @include('components.alert')
     <table class="min-w-full divide-y divide-gray-200">
         <thead>
             <tr>
@@ -15,12 +16,14 @@
         </thead>
         <tbody class="divide-y divide-gray-200">
             @foreach ($periode as $i => $periode)
-                <tr class="hover:bg-gray-100">
+                <tr class="hover:bg-blue-100">
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                         {{ $i + 1 }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                        {{ $periode->periode }}
+                        <a class="hover:underline hover:text-blue-600" href="{{ route('detail.periode', str_replace('/', '-', $periode->periode)) }}">
+                            {{ $periode->periode }}
+                        </a>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                         <span wire:click='ubahStatus({{ $periode->id }})'
@@ -29,8 +32,11 @@
                         </span>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                        <button type="button" data-hs-overlay="#hapus-periode" wire:click='setHapusPeriode({{ $periode->id }})'
-                            class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-600 hover:text-red-800 hover:underline disabled:opacity-50 disabled:pointer-events-none">Delete</button>
+                        <button type="button" data-hs-overlay="#hapus-periode"
+                            wire:click='setHapusPeriode({{ $periode->id }})'
+                            class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-600 hover:text-red-800 hover:underline disabled:opacity-50 disabled:pointer-events-none">
+                            Delete
+                        </button>
                     </td>
                 </tr>
             @endforeach

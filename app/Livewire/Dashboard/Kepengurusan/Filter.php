@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Dashboard\Kepengurusan;
 
+use App\Models\Divisi;
 use Livewire\Component;
 use App\Models\Periode;
 
@@ -30,9 +31,11 @@ class Filter extends Component
     public function render()
     {
         $periode = Periode::orderBy('periode', 'asc')->get();
+        $divisi = Divisi::all();
 
         return view('livewire.dashboard.kepengurusan.filter', [
-            'periodes' => $periode
+            'periodes' => $periode,
+            'divisions' => $divisi
         ]);
     }
 }

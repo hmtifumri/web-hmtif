@@ -7,12 +7,12 @@
         </select>
     </div>
     <div class="max-w-[140px] w-full">
-        @php
-            $divisions = ['semua', 'ksb', 'kaderisasi', 'psdm', 'kominfo', 'kwu', 'humas', 'kerohanian'];
-        @endphp
         <select class="form-input" wire:model.lazy="sortByDivision">
+            <option value="semua">Semua</option>
             @foreach ($divisions as $division)
-                <option class="capitalize" value="{{ $division }}">{{ $division }}</option>
+                @if ($division->divisi != 'admin')
+                    <option class="capitalize" value="{{ $division->id }}">{{ $division->singkatan }}</option>
+                @endif
             @endforeach
         </select>
     </div>

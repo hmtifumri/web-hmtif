@@ -16,7 +16,7 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->divisi == 'admin') {
+        if (Auth::check() && Auth::user()->jabatan == 'admin') {
             return $next($request);
         }
         abort(401);
