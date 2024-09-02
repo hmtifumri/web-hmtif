@@ -80,10 +80,10 @@
                         <a href="{{ route('kepengurusan', str_replace('/', '-', $periodeAktif->periode)) }}" wire:navigate.hover
                             class="text-[#515151] hover:text-navy dark:text-zinc-400 dark:hover:text-navy3 duration-300 font-medium font-plusjakartasans">Kepengurusan</a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('galeri') }}" wire:navigate.hover
                             class="text-[#515151] hover:text-navy dark:text-zinc-400 dark:hover:text-navy3 duration-300 font-medium font-plusjakartasans">Galeri</a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a href="{{ route('artikel') }}" wire:navigate.hover
                             class="text-[#515151] hover:text-navy dark:text-zinc-400 dark:hover:text-navy3 duration-300 font-medium font-plusjakartasans">Artikel</a>

@@ -6,6 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
+        <link rel="shortcut icon" href="{{ asset('assets/img/logo.png') }}" type="image/x-icon">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -22,7 +23,7 @@
                 </a>
             </div>
 
-            <div class="w-full max-w-2xl mt-6 p-8 bg-white shadow-lg overflow-hidden sm:rounded-lg">
+            <div class="w-full max-w-2xl mt-6 p-8 bg-white shadow-lg shadow-gray-200 overflow-hidden rounded-xl">
                 {{ $slot }}
             </div>
         </div>

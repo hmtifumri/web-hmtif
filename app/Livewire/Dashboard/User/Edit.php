@@ -23,13 +23,30 @@ class Edit extends Component
     public $defaultJabatanOptions = [];
     public $showKsbOptions = true;
     public $periodeOptions = [];
-    public $name, $email, $gender, $periode, $gambar, $phone;
+    public $name, $email, $gender, $periode, $gambar, $phone, $nim;
     public $croppedImage;
+
+    protected $messages = [
+        'name.required' => 'Nama harus diisi.',
+        'name.max' => 'Nama tidak boleh lebih dari 255 karakter.',
+        'nim.required' => 'NIM harus diisi.',
+        'nim.unique' => 'NIM sudah terdaftar.',
+        'email.required' => 'Email harus diisi.',
+        'email.email' => 'Format email tidak valid.',
+        'email.max' => 'Email tidak boleh lebih dari 255 karakter.',
+        'email.unique' => 'Email sudah terdaftar.',
+        'divisi.required' => 'Divisi harus diisi.',
+        'jabatan.required' => 'Jabatan harus diisi.',
+        'periode.required' => 'Periode harus diisi.',
+        'gender.required' => 'Jenis kelamin harus diisi.',
+        'gambar.image' => 'Gambar harus berupa file gambar.',
+    ];
 
     protected function rules()
     {
         return [
             'name' => 'required|max:255',
+            'nim' => 'required|unique:users,nim,' . $this->user->id,
             'email' => 'required|email|max:255|unique:users,email,' . $this->user->id,
             'divisi' => 'required',
             'jabatan' => 'required',
@@ -54,6 +71,7 @@ class Edit extends Component
         $this->periode = $user->periode_id;
         $this->gender = $user->gender;
         $this->phone = $user->phone;
+        $this->nim = $user->nim;
 
         $this->divisiOptions = Divisi::all()->pluck('divisi', 'id')->toArray();
 
@@ -136,6 +154,7 @@ class Edit extends Component
             'periode_id' => $this->periode,
             'gender' => $this->gender,
             'phone' => $this->phone,
+            'nim' => $this->nim,
         ]);
 
         session()->flash('success', 'Berhasil mengupdate data ' . $this->user->name);

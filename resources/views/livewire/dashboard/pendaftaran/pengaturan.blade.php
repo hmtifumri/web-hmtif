@@ -1,7 +1,7 @@
 <div>
 
 
-    <div class="max-w-3xl mx-auto bg-white border p-8 rounded-xl">
+    <div class="max-w-3xl mx-auto bg-white p-6 rounded-2xl shadow-lg shadow-gray-200/20">
 
         <div class="mb-8">
             <div class="text-center mb-4">

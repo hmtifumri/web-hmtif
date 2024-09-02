@@ -11,7 +11,7 @@
             <div class="bg-white border p-8 rounded-xl">
                 @if ($user->phone == null && $user->gambar == null)
                     <div class="mb-5 bg-rose-200 text-rose-800 py-2 px-6 rounded-md text-sm">
-                        Datanya belum lengkap. Lengkapi lah dulu datanya
+                        Datanya belum lengkap. Lengkapi dulu datanya
                     </div>
                 @endif
 
@@ -54,6 +54,14 @@
                         </div>
                     </div>
                     <div class="grid sm:grid-cols-2 gap-4">
+                        <div>
+                            <x-input-label for="nim" :value="__('NIM')" />
+                            <input type="number" class="form-input" id="nim" wire:model.blur='nim'
+                                autocomplete="off">
+                            @error('nim')
+                                <span class="error-msg">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <div>
                             <x-input-label for="name" :value="__('Name')" />
                             <input type="text" class="form-input" id="name" wire:model.blur='name'
@@ -146,7 +154,12 @@
                     </div>
 
                     <div class="mt-4">
-                        <button class="btn-primary w-full">{{ __('Update') }}</button>
+                        <button class="btn-primary w-full inline-flex items-center justify-center gap-3">
+                            <div class="animate-spin inline-block size-5 border-[3px] border-current border-t-transparent text-white rounded-full" role="status" aria-label="loading" wire:loading wire:target="save">
+                                <span class="sr-only">Loading...</span>
+                              </div>
+                            {{ __('Update') }}
+                        </button>
                     </div>
                 </form>
             </div>
@@ -169,15 +182,6 @@
                             {{ __('Crop & Save') }}
                         </button>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="flex flex-wrap -mx4">
-        <div class="w-full xl:w-1/2 p-4 order-2 xl:order-1">
-            <div class="bg-white border p-8 rounded-xl">
-                <div class="mb-4">
-                    <h1 class="dashboard-title">Keamanan</h1>
                 </div>
             </div>
         </div>

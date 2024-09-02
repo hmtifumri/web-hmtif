@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
+use App\Models\Categories;
 use App\Models\Periode;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -11,9 +13,10 @@ class HomeController extends Controller
 {
 	public function index()
 	{
-
+		$articles = Article::orderBy('created_at', 'desc')->take(5)->get();
 		return view('home', [
-			'title' => 'Beranda'
+			'title' => 'Beranda',
+			'articles' => $articles
 		]);
 	}
 
@@ -43,6 +46,45 @@ class HomeController extends Controller
 			'title' => 'Kepengurusan',
 			'periode' => $periode,
 			'users' => $users
+		]);
+	}
+
+	public function showArticle($slug)
+	{
+		// Ambil artikel yang sedang ditampilkan
+		$article = Article::where('slug', $slug)->first();
+
+		$previousArticle = Article::where('created_at', '<', $article->created_at)
+			->orderBy('created_at', 'desc')
+			->first();
+
+		$nextArticle = Article::where('created_at', '>', $article->created_at)
+			->orderBy('created_at', 'asc')
+			->first();
+
+		return view('show-article', [
+			'title' => $article->title,
+			'article' => $article,
+			'previousArticle' => $previousArticle,
+			'nextArticle' => $nextArticle,
+		]);
+	}
+
+
+	public function artikelByKategori($slug)
+	{
+		$kategori = Categories::where('slug', $slug)->first();
+
+		return view('articleByCategory', [
+			'title' => $kategori->category,
+			'kategori' => $kategori
+		]);
+	}
+
+	public function artikel()
+	{
+		return view('artikel', [
+			'title' => 'Artikel',
 		]);
 	}
 }

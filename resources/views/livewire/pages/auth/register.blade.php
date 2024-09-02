@@ -51,13 +51,27 @@ new #[Layout('layouts.guest')] class extends Component {
 
         $this->divisiOptions = $divisi;
 
+        // Get assigned roles for the active period
+        $assignedRoles = User::where('periode_id', $this->periode_id->id)
+            ->whereIn('jabatan', ['bupati', 'wakil_bupati', 'sekum', 'sekretaris', 'bendum'])
+            ->pluck('jabatan')
+            ->toArray();
+
         $this->ksbJabatanOptions = [
             'bupati' => 'Bupati',
-            'wakil bupati' => 'Wakil Bupati',
-            'sekretaris umum' => 'Sekretaris Umum',
+            'wakil_bupati' => 'Wakil Bupati',
+            'sekum' => 'Sekretaris Umum',
             'sekretaris' => 'Sekretaris',
-            'bendahara umum' => 'Bendahara Umum',
+            'bendum' => 'Bendahara Umum',
         ];
+
+        // Filter out the already assigned roles
+        $this->ksbJabatanOptions = array_diff_key($this->ksbJabatanOptions, array_flip($assignedRoles));
+        if (empty($this->ksbJabatanOptions)) {
+            $this->divisiOptions = $this->divisiOptions->filter(function ($divisi) {
+                return $divisi->singkatan !== 'ksb';
+            });
+        }
 
         $this->defaultJabatanOptions = [
             'kadiv' => 'Kepala Divisi',
@@ -65,6 +79,31 @@ new #[Layout('layouts.guest')] class extends Component {
             'anggota' => 'Anggota',
             'magang' => 'Magang',
         ];
+    }
+
+    public function updatedDivisi()
+    {
+        if ($this->divisi) {
+            $assignedDivisiRoles = User::where('periode_id', $this->periode_id->id)
+                ->where('divisi_id', Divisi::where('singkatan', $this->divisi)->first()->id)
+                ->pluck('jabatan')
+                ->toArray();
+
+            $this->defaultJabatanOptions = [
+                'kadiv' => 'Kepala Divisi',
+                'stafsus' => 'Staf Khusus',
+                'anggota' => 'Anggota',
+                'magang' => 'Magang',
+            ];
+
+            $rolesToExclude = ['kadiv'];
+
+            foreach ($rolesToExclude as $role) {
+                if (in_array($role, $assignedDivisiRoles)) {
+                    unset($this->defaultJabatanOptions[$role]);
+                }
+            }
+        }
     }
 
     public function updatedPasswordConfirmation()
@@ -87,9 +126,7 @@ new #[Layout('layouts.guest')] class extends Component {
         $validated['periode_id'] = $this->periode_id->id;
         $validated['divisi_id'] = $divisi->id;
 
-        event(new Registered((
-            $user = User::create($validated)
-        )));
+        event(new Registered(($user = User::create($validated))));
 
         Auth::login($user);
 
@@ -112,10 +149,10 @@ new #[Layout('layouts.guest')] class extends Component {
         <div class="mb-7 text-center">
             <h1 class="capitalize text-xl sm:text-2xl md:text-3xl font-bold font-plusjakartasans">Pendaftaran Anggota
                 HM-TIF <br> Periode {{ $this->periode_id->periode }}</h1>
-                @php
-                    $tanggalSelesai = Illuminate\Support\Carbon::parse($pengaturan->tanggal_selesai);
-                    Illuminate\Support\Carbon::setLocale('id');
-                @endphp
+            @php
+                $tanggalSelesai = Illuminate\Support\Carbon::parse($pengaturan->tanggal_selesai);
+                Illuminate\Support\Carbon::setLocale('id');
+            @endphp
             <p class="text-gray-500 mt-4">Pendaftaran dibuka hanya {{ $tanggalSelesai->diffForHumans() }}</p>
         </div>
         <form wire:submit.prevent="register">

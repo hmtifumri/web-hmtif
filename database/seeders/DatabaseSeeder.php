@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Categories;
 use App\Models\Divisi;
 use App\Models\User;
 use App\Models\Periode;
@@ -158,6 +159,12 @@ class DatabaseSeeder extends Seeder
             'tanggal_selesai' => date('Y-m-d', strtotime('+30 days')),
             'deskripsi' => 'Pendaftaran dilakukan selama 30 hari',
             'status' => 'ditutup'
+        ]);
+
+        Categories::create([
+            'category' => 'Teknologi',
+            'slug' => 'teknologi',
+            'created_at' => now()
         ]);
     }
 }

@@ -4,11 +4,13 @@ import "preline";
 document.addEventListener("livewire:navigated", function () {
     HSStaticMethods.autoInit();
 
-    AOS.init({
-        once: true,
-        duration: 800
-    });
+    // AOS.init({
+    //     once: true,
+    //     duration: 800
+    // });
 });
+
+
 
 
 const HSThemeAppearance = {

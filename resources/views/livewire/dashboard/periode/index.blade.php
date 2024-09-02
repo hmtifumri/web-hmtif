@@ -21,7 +21,7 @@
                         {{ $i + 1 }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                        <a class="hover:underline hover:text-blue-600" href="{{ route('detail.periode', str_replace('/', '-', $periode->periode)) }}">
+                        <a class="hover:underline hover:text-blue-600" href="{{ route('detail.periode', str_replace('/', '-', $periode->periode)) }}" wire:navigate>
                             {{ $periode->periode }}
                         </a>
                     </td>
@@ -76,7 +76,7 @@
                         kepengurusan
                         yang ada di periode ini akan dihapus seluruhnya</p>
                 </div>
-                <div class="flex justify-center items-center gap-x-2 py-3 px-4 pb-4">
+                <div class="flex justify-center items-center gap-x-2 py-6 px-4 pb-4 border-t">
                     <button type="button"
                         class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
                         data-hs-overlay="#hapus-periode">

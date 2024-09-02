@@ -194,12 +194,15 @@
     {{-- end profile --}}
 
     {{-- kepengurusan --}}
+    @php
+        $periode = App\Models\Periode::where('status', 'aktif')->first();
+    @endphp
     <section class="pb-10 lg:pb-24">
         <div class="container px-5 mx-auto">
             <div class="sm:flex items-center justify-between gap-4 mb-10 md:mb-14">
                 <h1 class="title uppercase max-w-lg">kepengurusan hm-tif</h1>
                 <div class="mt-3 sm:mt-0 text-sm sm:text-base">
-                    <a href=""
+                    <a href="{{ route('kepengurusan', str_replace('/', '-', $periode->periode)) }}" wire:navigate
                         class="inline-flex items-center gap-2 border-b text-navy2 font-semibold border-b-navy2 group">
                         See More
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
@@ -214,11 +217,10 @@
                 $divisions = ['kaderisasi-advokasi', 'psdm', 'kerohanian', 'humas', 'kominfo', 'kwu'];
             @endphp
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                @php
-                    $periode = App\Models\Periode::where('status', 'aktif')->first();
-                @endphp
+
                 @foreach ($divisions as $division)
-                    <a href="{{ route('divisi.show', [str_replace('/', '-', $periode->periode), $division]) }}" wire:navigate 
+                    <a href="{{ route('divisi.show', [str_replace('/', '-', $periode->periode), $division]) }}"
+                        wire:navigate
                         class="text-center px-8 uppercase text-lg sm:text-2xl lg:text-4xl text-navy2 bg-[#486DA3]/15 rounded-3xl flex items-center justify-center h-[160px] font-extrabold font-plusjakartasans hover:bg-navy2 hover:text-white duration-300 dark:bg-transparent dark:bg-gradient-to-br dark:from-zinc-800/80 dark:to-zinc-900 dark:text-zinc-600 dark:hover:text-zinc-400 dark:hover:to-zinc-800 dark:transition-all">{{ $division == 'kaderisasi-advokasi' ? 'Kaderisasi & Advokasi' : $division }}</a>
                 @endforeach
             </div>
@@ -262,7 +264,8 @@
                     <div class="col-span-2">
                         <div class="grid lg:grid-cols-3 gap-4">
                             <div class="col-span-1">
-                                <img src="{{ asset('assets/img/banner/1.png') }}" class="rounded-3xl" alt="">
+                                <img src="{{ asset('assets/img/banner/1.png') }}" class="rounded-3xl"
+                                    alt="">
                             </div>
                             <div class="col-span-1">
                                 <img src="{{ asset('assets/img/banner/1.png') }}" class="rounded-3xl"
@@ -286,31 +289,38 @@
         <div class="container mx-auto px-5">
             <div class="text-center mb-10 md:mb-14">
                 <h1 class="title uppercase max-w-3xl mx-auto">artikel terbaru</h1>
-                <p class="mt-5 text-zinc-400 dark:text-zinc-500 text-sm md:text-base max-w-2xl mx-auto">Lorem ipsum
-                    dolor sit amet consectetur, adipisicing elit. Aut consequatur pariatur veritatis cum nostrum id ipsa
-                    quisquam quasi est cumque.</p>
+                <p class="mt-5 text-zinc-400 dark:text-zinc-500 text-sm md:text-base max-w-2xl mx-auto">
+                    Ini adalah artikel terbaru yang dibuat oleh HM-TIF UMRI. Artikel ini dibuat bertujuan untuk menyediakan informasi terkini dan menambah wawasan pembaca
+                </p>
             </div>
             <div class="px-5">
-                @for ($i = 0; $i < 5; $i++)
+                @foreach ($articles as $article)
                     <div
                         class="flex mb-14 flex-wrap items-center -mx-5 group hover:bg-[#BED9FF] dark:hover:bg-navy/90 rounded-3xl hover:p-6 duration-500 ease-in-out">
                         <div class="w-full lg:w-[60%] px-5">
                             <div
                                 class="text-sm text-zinc-400 dark:text-zinc-500 dark:group-hover:text-navylight duration-500 group-hover:text-[#395682]">
-                                <p>12 Maret 2024 / Design / 5 min read</p>
+                                <p>{{ $article->created_at->format('d F Y') }} / <a
+                                        href="{{ route('artikelByKategori', $article->category->slug) }}"
+                                        class="hover:underline">{{ $article->category->category }}</a></p>
                                 <div class="mt-5 mb-9">
                                     <h2
-                                        class="text-[#030303] dark:text-zinc-300 font-plusjakartasans  text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold line-clamp-2">
-                                        Cara Membuat Website Dengan Mudah Tanpa Koding</h2>
-                                    <p class="mt-4 lg:hidden line-clamp-2">Lorem ipsum dolor sit amet consectetur
-                                        adipisicing elit. Tempora doloremque
-                                        incidunt
-                                        voluptates eligendi. Enim suscipit dolores minima, consequatur eveniet non!
-                                        Minima
-                                        nostrum cum natus molestiae, mollitia nulla? Esse, quae optio?</p>
+                                        class="text-[#030303] dark:text-zinc-300 font-plusjakartasans  text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold line-clamp-2 capitalize">
+                                        {{ $article->title }}
+                                    </h2>
+                                    <p class="mt-4 lg:hidden line-clamp-2">
+                                        @php
+                                            $text = strip_tags($article->body);
+                                            $words = explode(' ', $text);
+                                            $limitedWords = array_slice($words, 0, 100);
+                                            $limitedText = implode(' ', $limitedWords);
+                                        @endphp
+
+                                         {{ $limitedText }}{{ strlen($text) > strlen($limitedText) ? '...' : '' }}
+                                    </p>
                                 </div>
                                 <div>
-                                    <a href="{{ route('profil') }}" wire:navigate
+                                    <a href="{{ route('showArticle', $article->slug) }}" wire:navigate
                                         class="inline-flex items-center gap-3 text-navy2 dark:text-navylight group relative">
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                             class="w-5 h-5 text-white dark:text-zinc-200 group-hover:text-white duration-300 z-10 ml-[10px]"
@@ -329,31 +339,31 @@
                                 </div>
                             </div>
                         </div>
-                        <div
-                            class="w-full lg:w-[40%] px-5 text-zinc-500 dark:text-zinc-400 line-clamp-2 hidden lg:block">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora doloremque incidunt
-                                voluptates eligendi. Enim suscipit dolores minima, consequatur eveniet non! Minima
-                                nostrum cum natus molestiae, mollitia nulla? Esse, quae optio?</p>
+                        <div class="w-full lg:w-[40%] px-5 text-zinc-500 dark:text-zinc-400  hidden lg:block">
+                            <p class="line-clamp-2">
+                                {{ $limitedText }}{{ strlen($text) > strlen($limitedText) ? '...' : '' }}
+                            </p>
+
                         </div>
                     </div>
-                @endfor
+                @endforeach
             </div>
         </div>
     </section>
     {{-- end artikel --}}
 
     <section class="pb-10 lg:pb-24">
-        f<div class="container px-5 mx-auto">
+        <div class="container px-5 mx-auto">
             <div class="relative">
                 <div id="hmtif-slider" class="splide" aria-label="HM-TIF UMRI">
                     <div class="splide__track">
                         <ul class="splide__list">
                             <li class="splide__slide !mr-5">
                                 <div
-                                    class="text-5xl font-bold lg:text-[85px] text-[#bcc3d5] dark:text-zinc-800  font-plusjakartasans select-none">
+                                    class="text-5xl font-black lg:text-[85px] text-[#cdd4e6] dark:text-zinc-700  font-plusjakartasans select-none">
                                     HM-TIF UMRI
                                     <span class="text-navy2 dark:text-navy select-none inline-block">
-                                        •
+                                    ~
                                     </span>
                                 </div>
                             </li>
@@ -381,7 +391,7 @@
                     Daftarkan dirimu sekarang di Himpunan Mahasiswa Teknik Informatika
                 </h1>
                 <div class="text-center mt-14">
-                    <a href=""
+                    <a href="/register" wire:navigate
                         class="inline-flex items-center font-semibold text-lg md:text-xl bg-[#98C2FF] dark:bg-[#294268] dark:text-[#618ed1] px-6 py-2 rounded-2xl text-[#26436F] active:scale-90 duration-300 ease-in-out transition-all">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 md:w-10 md:h-10 mr-3"
                             viewBox="0 0 20 20">

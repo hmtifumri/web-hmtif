@@ -14,9 +14,9 @@
 
 <!-- Sidebar -->
 <div id="docs-sidebar"
-    class="hs-overlay [--auto-close:lg] hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 start-0 bottom-0 z-[60] w-3/4 md:w-64 bg-white border-e border-gray-200 pt-7 pb-10 overflow-y-auto lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 dark:bg-neutral-800 dark:border-neutral-700">
+    class="hs-overlay [--auto-close:lg] hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 start-0 bottom-0 z-[60] w-3/4 md:w-64 bg-white rounded-r-3xl border-e border-gray-200 pt-7 pb-10 overflow-y-auto lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 dark:bg-neutral-800 dark:border-neutral-700">
     <div class="px-6">
-        <a class="flex-none" href="{{ route('home') }}" aria-label="Brand" wire:navigate>
+        <a class="flex-none" href="{{ route('home') }}" aria-label="Brand">
             <img src="{{ asset('assets/img/logo.png') }}" class="mx-auto w-16" alt="{{ config('app.name') }}">
         </a>
     </div>
@@ -34,6 +34,21 @@
                 </a>
             </li>
 
+            @if (Auth::user()->jabatan == 'admin' || Auth::user()->divisi_id == 7)
+                <li>
+                    <a class="{{ request()->routeIs('dashboard.banner') ? 'bg-blue-600 text-white' : 'hover:bg-gray-100' }} flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg  dark:bg-neutral-700 dark:text-white"
+                        href="{{ route('dashboard.banner') }}" wire:navigate>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                        </svg>
+
+                        Banner
+                    </a>
+                </li>
+            @endif
+
             @if (Auth::user()->jabatan == 'admin')
                 <li>
                     <a class="{{ request()->is('dashboard/periode*') ? 'bg-blue-600 text-white' : 'hover:bg-gray-100' }} flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg  dark:bg-neutral-700 dark:text-white"
@@ -46,6 +61,8 @@
                         Periode
                     </a>
                 </li>
+            @endif
+            @if (Auth::user()->jabatan == 'admin' || Auth::user()->divisi_id == 2 || Auth::user()->jabatan == "kadiv")
                 <li>
                     <a class="{{ request()->routeIs('kepengurusan.dashboard') ? 'bg-blue-600 text-white' : 'hover:bg-gray-100' }} flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg  dark:bg-neutral-700 dark:text-white"
                         href="{{ route('kepengurusan.dashboard') }}" wire:navigate>
@@ -57,6 +74,8 @@
                         Kepengurusan
                     </a>
                 </li>
+            @endif
+            @if (Auth::user()->jabatan == 'admin')
                 <li>
                     <a class="{{ request()->routeIs('pengaturan.pendaftaran') ? 'bg-blue-600 text-white' : 'hover:bg-gray-100' }} flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg  dark:bg-neutral-700 dark:text-white"
                         href="{{ route('pengaturan.pendaftaran') }}" wire:navigate>
@@ -82,128 +101,53 @@
                 </li>
             @endif
 
-            {{-- <li class="hs-accordion" id="users-accordion">
-                <button type="button"
-                    class="hs-accordion-toggle hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-300 dark:hs-accordion-active:text-white">
-                    <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                        <circle cx="9" cy="7" r="4" />
-                        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                    </svg>
-                    Users
+            @if (Auth::user()->jabatan == 'admin' || Auth::user()->divisi_id == 7)
+                <li class="hs-accordion {{ request()->is('dashboard/artikel*') || request()->is('dashboard/kategori*') ? 'active' : '' }}"
+                    id="articles-accordion">
+                    <button type="button"
+                        class="hs-accordion-toggle hs-accordion-active:bg-blue-600 hs-accordion-active:text-white hs-accordion-active:hover:bg-blue-600 w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-300 dark:hs-accordion-active:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z" />
+                        </svg>
+                        Artikel
 
-                    <svg class="hs-accordion-active:block ms-auto hidden size-4 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="m18 15-6-6-6 6" />
-                    </svg>
+                        <svg class="hs-accordion-active:block ms-auto hidden size-4"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="m18 15-6-6-6 6" />
+                        </svg>
 
-                    <svg class="hs-accordion-active:hidden ms-auto block size-4 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="m6 9 6 6 6-6" />
-                    </svg>
-                </button>
+                        <svg class="hs-accordion-active:hidden ms-auto block size-4"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="m6 9 6 6 6-6" />
+                        </svg>
+                    </button>
 
-                <div id="users-accordion"
-                    class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300 hidden">
-                    <ul class="hs-accordion-group ps-3 pt-2" data-hs-accordion-always-open>
-                        <li class="hs-accordion" id="users-accordion-sub-1">
-                            <button type="button"
-                                class="hs-accordion-toggle hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-300 dark:hs-accordion-active:text-white">
-                                Sub Menu 1
+                    <div id="articles-accordion"
+                        class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300  {{ request()->is('dashboard/artikel*') || request()->is('dashboard/kategori*') ? 'block' : 'hidden' }}">
+                        <ul class="hs-accordion-group ps-3 pt-2" data-hs-accordion-always-open>
+                            <li class="hs-accordion" id="articles-accordion-sub-1">
+                                <a href="{{ route('dashboard.kategori') }}" wire:navigate
+                                    class="hs-accordion-toggle {{ request()->is('dashboard/kategori*') ? 'bg-blue-600 text-white' : 'hover:bg-gray-100' }} flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg  dark:bg-neutral-700 dark:text-white">
+                                    Kategori
+                                </a>
+                            </li>
+                            <li class="hs-accordion" id="articles-accordion-sub-2">
+                                <a href="{{ route('dashboard.artikel') }}" wire:navigate
+                                    class="hs-accordion-toggle {{ request()->is('dashboard/artikel*') ? 'bg-blue-600 text-white' : 'hover:bg-gray-100' }} flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg  dark:bg-neutral-700 dark:text-white">
+                                    Artikel
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endif
 
-                                <svg class="hs-accordion-active:block ms-auto hidden size-4 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <path d="m18 15-6-6-6 6" />
-                                </svg>
-
-                                <svg class="hs-accordion-active:hidden ms-auto block size-4 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <path d="m6 9 6 6 6-6" />
-                                </svg>
-                            </button>
-
-                            <div id="users-accordion-sub-1"
-                                class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300 hidden">
-                                <ul class="pt-2 ps-2">
-                                    <li>
-                                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-300"
-                                            href="#">
-                                            Link 1
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-300"
-                                            href="#">
-                                            Link 2
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-300"
-                                            href="#">
-                                            Link 3
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="hs-accordion" id="users-accordion-sub-2">
-                            <button type="button"
-                                class="hs-accordion-toggle hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-300 dark:hs-accordion-active:text-white">
-                                Sub Menu 2
-
-                                <svg class="hs-accordion-active:block ms-auto hidden size-4 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="m18 15-6-6-6 6" />
-                                </svg>
-
-                                <svg class="hs-accordion-active:hidden ms-auto block size-4 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="m6 9 6 6 6-6" />
-                                </svg>
-                            </button>
-
-                            <div id="users-accordion-sub-2"
-                                class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300 hidden ps-2">
-                                <ul class="pt-2 ps-2">
-                                    <li>
-                                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-300"
-                                            href="#">
-                                            Link 1
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-300"
-                                            href="#">
-                                            Link 2
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-300"
-                                            href="#">
-                                            Link 3
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </li> --}}
         </ul>
     </nav>
 </div>

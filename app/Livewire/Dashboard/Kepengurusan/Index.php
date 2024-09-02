@@ -6,19 +6,21 @@ use Livewire\Component;
 use Livewire\Attributes\On;
 use App\Models\Periode;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class Index extends Component
 {
     public $periodeId, $divisionFilter, $pengurus, $search = '';
 
-    #[On('filterPeriode')] 
+    #[On('filterPeriode')]
     public function setPeriode($periodeId)
     {
         $this->periodeId = $periodeId;
         $this->loadPengurus();
     }
 
-    #[On('filterDivisi')] 
+    #[On('filterDivisi')]
     public function setDivisionFilter($division)
     {
         $this->divisionFilter = $division;
@@ -47,17 +49,17 @@ class Index extends Component
     public function loadPengurus()
     {
         $query = User::where('periode_id', $this->periodeId)
-                     ->where('jabatan', '!=', 'admin');
+            ->where('jabatan', '!=', 'admin');
 
         if ($this->divisionFilter && $this->divisionFilter !== 'semua') {
             $query->where('divisi_id', $this->divisionFilter);
         }
 
         if ($this->search) {
-            $query->where(function($q) {
+            $query->where(function ($q) {
                 $q->where('name', 'like', '%' . $this->search . '%')
-                  ->orWhere('email', 'like', '%' . $this->search . '%')
-                  ->orWhere('phone', 'like', '%' . $this->search . '%');
+                    ->orWhere('email', 'like', '%' . $this->search . '%')
+                    ->orWhere('phone', 'like', '%' . $this->search . '%');
             });
         }
 
@@ -84,7 +86,7 @@ class Index extends Component
             END
         ")->get();
     }
-    
+
     public function render()
     {
         $periode = Periode::find($this->periodeId);
@@ -93,5 +95,24 @@ class Index extends Component
             'periode' => $periode,
             'pengurus' => $this->pengurus,
         ]);
+    }
+
+    public function hapus($id)
+    {
+        if (Auth::user()->jabatan !== 'admin') {
+            return $this->redirect(route('dashboard'));
+        }
+        $user = User::find($id);
+
+        if (!$user) {
+            return $this->redirect(route('dashboard'));
+        }
+
+        if ($user->gambar) {
+            Storage::disk('public')->delete($user->gambar);
+        }
+
+        $user->delete();
+        return $this->redirect(route('kepengurusan.dashboard'));
     }
 }

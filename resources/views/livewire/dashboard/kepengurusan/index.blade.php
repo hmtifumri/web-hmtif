@@ -12,13 +12,15 @@
         </div>
     </div>
 
-    <div class="flex flex-col mt-10" wire:loading.class="opacity-50">
+    <div class="flex flex-col mt-10 bg-white p-6 rounded-2xl shadow-lg shadow-gray-200/20"
+        wire:loading.class="opacity-50">
         @if (count($pengurus) > 0)
             @foreach ($pengurus->groupBy('divisi_id') as $divisionId => $members)
                 @php
                     $division = \App\Models\Divisi::find($divisionId);
                 @endphp
-                <div class="mb-6 last-of-type:mb-0 overflow-x-auto" wire:transition.scale.origin.top wire:key='{{ $divisionId }}'>
+                <div class="mb-6 last-of-type:mb-0 overflow-x-auto"
+                    wire:key='{{ $divisionId }}'>
                     <div>
                         <div class="mb-2">
                             <h2 class="text-xl font-semibold capitalize">{{ $division->singkatan }}</h2>
@@ -42,9 +44,11 @@
                                                     <th scope="col"
                                                         class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
                                                         Jenis Kelamin</th>
-                                                    <th scope="col"
-                                                        class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">
-                                                        Action</th>
+                                                    @if (Auth::user()->jabatan == 'admin')
+                                                        <th scope="col"
+                                                            class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">
+                                                            Action</th>
+                                                    @endif
                                                 </tr>
                                             </thead>
                                             <tbody class="divide-y divide-gray-200">
@@ -64,18 +68,22 @@
                                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                                                             {{ $user->gender == 'L' ? 'Laki-laki' : 'Perempuan' }}
                                                         </td>
-                                                        <td
-                                                            class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                                                            <div class="inline-flex items-center gap-3">
-                                                                <div>
-                                                                    <a href="{{ route('user.edit', encrypt($user->id)) }}"
-                                                                        class="hover:underline text-teal-600">Edit</a>
+                                                        @if (Auth::user()->jabatan == 'admin')
+                                                            <td
+                                                                class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+                                                                <div class="inline-flex items-center gap-3">
+                                                                    <div>
+                                                                        <a href="{{ route('user.edit', encrypt($user->id)) }}"
+                                                                            class="hover:underline text-teal-600">Edit</a>
+                                                                    </div>
+                                                                    <div>
+                                                                        <button type="button"
+                                                                            wire:click='hapus({{ $user->id }})'
+                                                                            wire:confirm="Yakin ingin menghapus {{ $user->name }}?"
+                                                                            class="hover:underline text-rose-600">Delete</button>
+                                                                    </div>
                                                                 </div>
-                                                                <div>
-                                                                    <a href=""
-                                                                        class="hover:underline text-rose-600">Delete</a>
-                                                                </div>
-                                                            </div>
+                                                        @endif
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -94,5 +102,5 @@
             </div>
         @endif
     </div>
-    
+
 </div>

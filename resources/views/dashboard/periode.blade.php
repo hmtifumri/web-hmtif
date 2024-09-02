@@ -40,7 +40,7 @@
     </div>
 
     <div class="mt-8">
-        <div class="flex flex-col">
+        <div class="flex flex-col bg-white p-6 rounded-2xl shadow-lg shadow-gray-200/20">
             <div class="-m-1.5 overflow-x-auto">
                 <div class="p-1.5 min-w-full inline-block align-middle">
                     @livewire('dashboard.periode.index', ['periode' => $periode])

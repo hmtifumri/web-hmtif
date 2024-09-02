@@ -52,8 +52,11 @@
     </div>
 </nav> --}}
 
+
 <div class="pt-8 lg:pt-12 mb-6 hidden sm:block">
-    <img src="{{ asset('assets/img/logo.png') }}" class="mx-auto w-28 " alt="Logo HM-TIF">
+    <a href="/" wire:navigate>
+        <img src="{{ asset('assets/img/logo.png') }}" class="mx-auto w-28 " alt="Logo HM-TIF">
+    </a>
 </div>
 
 <header
@@ -128,30 +131,34 @@
                         wire:navigate.hover type="button"
                         class="flex items-center {{ request()->routeIs('kepengurusan') ? 'text-navy2 dark:text-navy3 sm:border-b-2 sm:border-navy2 font-semibold' : 'font-medium text-zinc-600 dark:text-zinc-400 hover:text-navy2 dark:hover:text-navy2 ' }}">
                         Kepengurusan
-                        <svg class="ms-1 flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="m6 9 6 6 6-6" />
-                        </svg>
+                        @if (count($periode) > 1)
+                            <svg class="ms-1 flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m6 9 6 6 6-6" />
+                            </svg>
+                        @endif
                     </a>
 
-                    <div
-                        class="hs-dropdown-menu w-48 transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden z-10">
+                    @if (count($periode) > 1)
                         <div
-                            class="hs-dropdown-open:ease-in hs-dropdown-open:opacity-100 hs-dropdown-open:scale-100 transition ease-out opacity-0 scale-95 duration-200 -mt-2.5 origin-top-left bg-white shadow-md rounded-lg p-2 dark:bg-neutral-800 dark:border dark:border-neutral-700 dark:divide-neutral-700">
-                            @foreach ($periode as $p)
-                                <a class="{{ request()->is('kepengurusan/' . str_replace('/', '-', $p->periode)) ? 'bg-navy3 text-white dark:bg-navy' : 'text-gray-800 hover:bg-gray-100' }}
-                                flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300"
-                                    href="{{ route('kepengurusan', str_replace('/', '-', $p->periode)) }}"
-                                    wire:navigate>
-                                    {{ $p->periode }}
-                                </a>
-                            @endforeach
+                            class="hs-dropdown-menu w-48 transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden z-10">
+                            <div
+                                class="hs-dropdown-open:ease-in hs-dropdown-open:opacity-100 hs-dropdown-open:scale-100 transition ease-out opacity-0 scale-95 duration-200 -mt-2.5 origin-top-left bg-white shadow-md rounded-lg p-2 dark:bg-neutral-800 dark:border dark:border-neutral-700 dark:divide-neutral-700">
+                                @foreach ($periode as $p)
+                                    <a class="{{ request()->is('kepengurusan/' . str_replace('/', '-', $p->periode)) ? 'bg-navy3 text-white dark:bg-navy' : 'text-gray-800 hover:bg-gray-100' }}
+        flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300"
+                                        href="{{ route('kepengurusan', str_replace('/', '-', $p->periode)) }}"
+                                        wire:navigate>
+                                        {{ $p->periode }}
+                                    </a>
+                                @endforeach
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
-                <a class="{{ request()->routeIs('galeri') ? 'text-navy2 dark:text-navy3 sm:border-b-2 sm:border-navy2 font-semibold' : 'font-medium text-zinc-600 dark:text-zinc-400 hover:text-navy2 dark:hover:text-navy2 ' }}"
-                    href="{{ route('galeri') }}" wire:navigate.hover>Galeri</a>
+                {{-- <a class="{{ request()->routeIs('galeri') ? 'text-navy2 dark:text-navy3 sm:border-b-2 sm:border-navy2 font-semibold' : 'font-medium text-zinc-600 dark:text-zinc-400 hover:text-navy2 dark:hover:text-navy2 ' }}"
+                    href="{{ route('galeri') }}" wire:navigate.hover>Galeri</a> --}}
                 <a class="{{ request()->routeIs('artikel') ? 'text-navy2 dark:text-navy3 sm:border-b-2 sm:border-navy2 font-semibold' : 'font-medium text-zinc-600 dark:text-zinc-400 hover:text-navy2 dark:hover:text-navy2 ' }}"
                     href="{{ route('artikel') }}" wire:navigate.hover>Artikel</a>
             </div>
