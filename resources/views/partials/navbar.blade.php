@@ -123,7 +123,7 @@
 
                 @php
                     $periode = App\Models\Periode::orderBy('periode', 'asc')->get();
-                    $periodeAktif = App\Models\Periode::where('status', 'aktif')->first();
+                    $periodeAktif = App\Models\Periode::where('status', 'aktif')->first(); 
                 @endphp
 
                 <div class="hs-dropdown [--trigger:hover]">
