@@ -87,7 +87,7 @@
                     </div>
                 </button>
             </div>
-            <a class="flex-none text-xl font-semibold dark:text-white sm:hidden" href="#">
+            <a class="flex-none text-xl font-semibold dark:text-white sm:hidden" href="/" wire:navigate>
                 <img src="{{ asset('assets/img/logo.png') }}" class="mx-auto w-14 " alt="Logo {{ config('app.name') }}">
             </a>
             <div class="sm:hidden">
@@ -111,9 +111,8 @@
             </div>
         </div>
         <div id="navbar"
-            class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:block">
-            <div
-                class="flex flex-col gap-6 mt-5 sm:flex-row sm:items-center justify-end sm:justify-center sm:mt-0 sm:ps-5 pl-3 pb-4">
+            class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:flex sm:justify-center">
+            <div class="navbar-content-container">
                 <a class="{{ request()->routeIs('home') ? 'text-navy2 dark:text-navy3 sm:border-b-2 sm:border-navy2 font-semibold' : 'font-medium text-zinc-600 dark:text-zinc-400 hover:text-navy2 dark:hover:text-navy2 ' }}"
                     href="{{ route('home') }}" wire:navigate.hover aria-current="page">Beranda</a>
                 <a class="{{ request()->routeIs('profil') ? 'text-navy2 dark:text-navy3 sm:border-b-2 sm:border-navy2 font-semibold' : 'font-medium text-zinc-600 dark:text-zinc-400 hover:text-navy2 dark:hover:text-navy2 ' }}"
@@ -123,7 +122,7 @@
 
                 @php
                     $periode = App\Models\Periode::orderBy('periode', 'asc')->get();
-                    $periodeAktif = App\Models\Periode::where('status', 'aktif')->first(); 
+                    $periodeAktif = App\Models\Periode::where('status', 'aktif')->first();
                 @endphp
 
                 <div class="hs-dropdown [--trigger:hover]">
@@ -161,6 +160,14 @@
                     href="{{ route('galeri') }}" wire:navigate.hover>Galeri</a> --}}
                 <a class="{{ request()->routeIs('artikel') ? 'text-navy2 dark:text-navy3 sm:border-b-2 sm:border-navy2 font-semibold' : 'font-medium text-zinc-600 dark:text-zinc-400 hover:text-navy2 dark:hover:text-navy2 ' }}"
                     href="{{ route('artikel') }}" wire:navigate.hover>Artikel</a>
+
+                @if (Auth::check())
+                    <a class="font-medium text-zinc-600 dark:text-zinc-400 hover:text-navy2 dark:hover:text-navy2"
+                        href="{{ route('dashboard') }}">Dashboard</a>
+                @else
+                    <a class="font-medium text-zinc-600 dark:text-zinc-400 hover:text-navy2 dark:hover:text-navy2"
+                        href="{{ route('login') }}">Login</a>
+                @endif
             </div>
         </div>
     </nav>

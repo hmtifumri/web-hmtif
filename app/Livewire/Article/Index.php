@@ -56,7 +56,7 @@ class Index extends Component
                 break;
         }
 
-        $articles = $query->paginate(10)->withQueryString()->onEachSide(1);
+        $articles = $query->where('is_published', '1')->latest()->paginate(10)->withQueryString()->onEachSide(1);
 
         // Ambil daftar tahun untuk dropdown
         $years = Article::selectRaw('YEAR(created_at) as year')

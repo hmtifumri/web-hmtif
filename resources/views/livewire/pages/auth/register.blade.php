@@ -39,6 +39,33 @@ new #[Layout('layouts.guest')] class extends Component {
     #[Validate('required|string')]
     public string $password_confirmation = '';
 
+    protected $messages = [
+        'nim.required' => 'NIM wajib diisi.',
+        'nim.string' => 'NIM harus berupa string.',
+        'nim.max' => 'NIM tidak boleh lebih dari 255 karakter.',
+        'nim.unique' => 'NIM sudah terdaftar.',
+        'name.required' => 'Nama wajib diisi.',
+        'name.string' => 'Nama harus berupa string.',
+        'name.max' => 'Nama tidak boleh lebih dari 255 karakter.',
+        'email.required' => 'Email wajib diisi.',
+        'email.string' => 'Email harus berupa string.',
+        'email.email' => 'Format email tidak valid.',
+        'email.max' => 'Email tidak boleh lebih dari 255 karakter.',
+        'email.unique' => 'Email sudah terdaftar.',
+        'phone.string' => 'Nomor telepon harus berupa string.',
+        'phone.max' => 'Nomor telepon tidak boleh lebih dari 20 karakter.',
+        'divisi.required' => 'Divisi wajib dipilih.',
+        'jabatan.required' => 'Jabatan wajib dipilih.',
+        'gender.required' => 'Jenis kelamin wajib dipilih.',
+        'password.required' => 'Password wajib diisi.',
+        'password.string' => 'Password harus berupa string.',
+        'password.min' => 'Password harus minimal 6 karakter.',
+        'password.confirmed' => 'Konfirmasi password tidak cocok.',
+        'password_confirmation.required' => 'Konfirmasi password wajib diisi.',
+        'password_confirmation.string' => 'Konfirmasi password harus berupa string.',
+        'password_confirmation.same' => 'Konfirmasi password harus sama dengan password.',
+    ];
+
     public $periode_id;
     public $divisiOptions = [];
     public $ksbJabatanOptions = [];

@@ -69,10 +69,10 @@ class Index extends Component
                 WHEN divisi_id = 2 THEN
                     CASE 
                         WHEN jabatan = 'bupati' THEN 1
-                        WHEN jabatan = 'wakil bupati' THEN 2
-                        WHEN jabatan = 'sekretaris umum' THEN 3
+                        WHEN jabatan = 'wakil_bupati' THEN 2
+                        WHEN jabatan = 'sekum' THEN 3
                         WHEN jabatan = 'sekretaris' THEN 4
-                        WHEN jabatan = 'bendahara' THEN 5
+                        WHEN jabatan = 'bendum' THEN 5
                         ELSE 6
                     END
                 ELSE

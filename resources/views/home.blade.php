@@ -2,16 +2,18 @@
     @push('scripts')
         <script>
             new Splide("#banner", {
-                heightRatio: 0.7,
-                cover: true,
                 width: "100vw",
                 type: "loop",
                 interval: 4000,
                 speed: 1000,
                 autoplay: "play",
-                arrows: false,
+                arrows: true,
                 pagination: false,
                 gap: 30,
+                autoScroll: {
+                    pauseOnHover: false,
+                    speed: 1,
+                }
             }).mount();
 
             new Splide("#divisions", {
@@ -78,18 +80,16 @@
 
     {{-- banner --}}
     <section class="relative pb-10 lg:pb-16" wire:ignore>
-        <div class="container px-5 mx-auto ">
+        <div class="container px-5 mx-auto">
             <div id="banner" class="splide" aria-label="Banner">
                 <div class="splide__track">
                     <ul class="splide__list">
-                        <li class="splide__slide rounded-3xl">
-                            <img src="{{ asset('assets/img/banner/1.png') }}"
-                                class="w-full h-auto object-cover object-center" alt="">
-                        </li>
-                        <li class="splide__slide rounded-3xl">
-                            <img src="{{ asset('assets/img/banner/2.png') }}"
-                                class="w-full h-auto object-cover object-center" alt="">
-                        </li>
+                        @foreach ($banners as $i => $banner)
+                            <li class="splide__slide rounded-3xl">
+                                <img src="{{ asset($banner->image) }}" class="w-full rounded-3xl"
+                                    alt="banner-{{ $i }}">
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -140,8 +140,10 @@
     <section class="pb-10 lg:pb-24" id="profile">
         <div class="container px-5 mx-auto">
             <div class="text-center mb-14">
-                <h1 class="title uppercase max-w-3xl mx-auto">himpunan mahasiswa teknik informatika</h1>
-                <p class="mt-5 text-zinc-400 dark:text-zinc-500 text-sm md:text-base max-w-4xl mx-auto">HM-TIF UMRI
+                <h1 class="title uppercase max-w-3xl mx-auto" data-aos="fade-up">himpunan mahasiswa teknik informatika
+                </h1>
+                <p class="mt-5 text-zinc-400 dark:text-zinc-500 text-sm md:text-base max-w-4xl mx-auto"
+                    data-aos="fade-up">HM-TIF UMRI
                     adalah sebuah
                     organisasi mahasiswa
                     Teknik Informatika di Universitas Muhammadiyah Riau. Beralamat di Jalan Tuanku Tambusai, Delima,
@@ -150,18 +152,20 @@
 
             <div class="flex flex-wrap -mx-5 items-center">
                 <div class="w-full lg:w-[40%] px-5 mb-5 lg:mb-0">
-                    <img src="{{ asset('assets/img/visimisi.jpg') }}" class="w-full rounded-3xl" alt="">
+                    <img src="{{ asset('assets/img/visimisi.jpg') }}" class="w-full rounded-[1.75rem]" alt=""
+                        data-aos="zoom-in-right">
                 </div>
                 <div class="w-full lg:w-[60%] px-5">
                     <div class="mb-6">
-                        <h1 class="title xl:!text-4xl uppercase">visi</h1>
-                        <p class="text-zinc-400 dark:text-zinc-500 mt-3">Menjadikan HMTIF sebagai wadah aspirasi dan
+                        <h1 class="title xl:!text-4xl uppercase" data-aos="fade-up">visi</h1>
+                        <p class="text-zinc-400 dark:text-zinc-500 mt-3" data-aos="fade-up">Menjadikan HMTIF sebagai
+                            wadah aspirasi dan
                             kreatifitas yang
                             optimal dalam mewujudkan organisasi yang lebih profesional dengan asas kekeluargaan</p>
                     </div>
                     <div class="mb-14">
-                        <h1 class="title xl:!text-4xl uppercase">misi</h1>
-                        <ol class="text-zinc-400 dark:text-zinc-500 mt-3 list-inside list-decimal">
+                        <h1 class="title xl:!text-4xl uppercase" data-aos="fade-up">misi</h1>
+                        <ol class="text-zinc-400 dark:text-zinc-500 mt-3 list-inside list-decimal" data-aos="fade-up">
                             <li>Menciptakan iklim organisasi yang dinamis dan progresif</li>
                             <li>Mengoptimalkan kepengurusan hmtif sebagai wadah terjalinnya komunikasi yang produktif
                                 dalam
@@ -169,7 +173,7 @@
                             <li>Membangkitkan kualitas pengurus HMTIF yang adaptif dan inovatif</li>
                         </ol>
                     </div>
-                    <div>
+                    <div data-aos="fade-up">
                         <a href="{{ route('profil') }}" wire:navigate
                             class="inline-flex items-center gap-3 text-navy2 dark:text-navy3 group relative">
                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -200,8 +204,8 @@
     <section class="pb-10 lg:pb-24">
         <div class="container px-5 mx-auto">
             <div class="sm:flex items-center justify-between gap-4 mb-10 md:mb-14">
-                <h1 class="title uppercase max-w-lg">kepengurusan hm-tif</h1>
-                <div class="mt-3 sm:mt-0 text-sm sm:text-base">
+                <h1 class="title uppercase max-w-lg" data-aos="fade-right">kepengurusan hm-tif</h1>
+                <div class="mt-3 sm:mt-0 text-sm sm:text-base" data-aos="fade-left">
                     <a href="{{ route('kepengurusan', str_replace('/', '-', $periode->periode)) }}" wire:navigate
                         class="inline-flex items-center gap-2 border-b text-navy2 font-semibold border-b-navy2 group">
                         See More
@@ -218,10 +222,12 @@
             @endphp
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
 
-                @foreach ($divisions as $division)
-                    <a href="{{ route('divisi.show', [str_replace('/', '-', $periode->periode), $division]) }}"
-                        wire:navigate
-                        class="text-center px-8 uppercase text-lg sm:text-2xl lg:text-4xl text-navy2 bg-[#486DA3]/15 rounded-3xl flex items-center justify-center h-[160px] font-extrabold font-plusjakartasans hover:bg-navy2 hover:text-white duration-300 dark:bg-transparent dark:bg-gradient-to-br dark:from-zinc-800/80 dark:to-zinc-900 dark:text-zinc-600 dark:hover:text-zinc-400 dark:hover:to-zinc-800 dark:transition-all">{{ $division == 'kaderisasi-advokasi' ? 'Kaderisasi & Advokasi' : $division }}</a>
+                @foreach ($divisions as $i => $division)
+                    <div data-aos="zoom-in-up" data-aos-delay="{{ $i * 100 }}">
+                        <a href="{{ route('divisi.show', [str_replace('/', '-', $periode->periode), $division]) }}"
+                            wire:navigate
+                            class="text-center px-8 uppercase text-lg sm:text-2xl lg:text-4xl text-navy2 bg-[#486DA3]/15 rounded-3xl flex items-center justify-center h-[160px] font-extrabold font-plusjakartasans hover:bg-navy2 hover:text-white duration-300 dark:bg-transparent dark:bg-gradient-to-br dark:from-zinc-800/80 dark:to-zinc-900 dark:text-zinc-600 dark:hover:text-zinc-400 dark:hover:to-zinc-800 dark:transition-all">{{ $division == 'kaderisasi-advokasi' ? 'Kaderisasi & Advokasi' : $division }}</a>
+                    </div>
                 @endforeach
             </div>
         </div>
@@ -229,7 +235,7 @@
     {{-- end kepengurusan --}}
 
     {{-- galeri --}}
-    <section class="pb-10 lg:pb-24 pl-5">
+    {{-- <section class="pb-10 lg:pb-24 pl-5">
         <div class="bg-white dark:bg-zinc-900 px-6 py-8 md:p-10 rounded-l-3xl">
             <div class="container mx-auto px-5">
                 <div class="md:flex items-center justify-between gap-4 mb-10 md:mb-14">
@@ -280,7 +286,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     {{-- end galeri --}}
 
 
@@ -288,65 +294,27 @@
     <section class="pb-10 lg:pb-24">
         <div class="container mx-auto px-5">
             <div class="text-center mb-10 md:mb-14">
-                <h1 class="title uppercase max-w-3xl mx-auto">artikel terbaru</h1>
-                <p class="mt-5 text-zinc-400 dark:text-zinc-500 text-sm md:text-base max-w-2xl mx-auto">
-                    Ini adalah artikel terbaru yang dibuat oleh HM-TIF UMRI. Artikel ini dibuat bertujuan untuk menyediakan informasi terkini dan menambah wawasan pembaca
+                <h1 class="title uppercase max-w-3xl mx-auto" data-aos="zoom-in-up">artikel terbaru</h1>
+                <p class="mt-5 text-zinc-400 dark:text-zinc-500 text-sm md:text-base max-w-2xl mx-auto"
+                    data-aos="zoom-in-up">
+                    Ini adalah artikel terbaru yang dibuat oleh HM-TIF UMRI. Artikel ini dibuat bertujuan untuk
+                    menyediakan informasi terkini dan menambah wawasan pembaca
                 </p>
             </div>
             <div class="px-5">
-                @foreach ($articles as $article)
-                    <div
-                        class="flex mb-14 flex-wrap items-center -mx-5 group hover:bg-[#BED9FF] dark:hover:bg-navy/90 rounded-3xl hover:p-6 duration-500 ease-in-out">
-                        <div class="w-full lg:w-[60%] px-5">
-                            <div
-                                class="text-sm text-zinc-400 dark:text-zinc-500 dark:group-hover:text-navylight duration-500 group-hover:text-[#395682]">
-                                <p>{{ $article->created_at->format('d F Y') }} / <a
-                                        href="{{ route('artikelByKategori', $article->category->slug) }}"
-                                        class="hover:underline">{{ $article->category->category }}</a></p>
-                                <div class="mt-5 mb-9">
-                                    <h2
-                                        class="text-[#030303] dark:text-zinc-300 font-plusjakartasans  text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold line-clamp-2 capitalize">
-                                        {{ $article->title }}
-                                    </h2>
-                                    <p class="mt-4 lg:hidden line-clamp-2">
-                                        @php
-                                            $text = strip_tags($article->body);
-                                            $words = explode(' ', $text);
-                                            $limitedWords = array_slice($words, 0, 100);
-                                            $limitedText = implode(' ', $limitedWords);
-                                        @endphp
+                <div class="flex flex-wrap -mx-4"data-aos="zoom-in-up">
+                    @foreach ($articles as $article)
+                        @php
+                            $text = strip_tags($article->body);
+                            $words = explode(' ', $text);
+                            $limitedWords = array_slice($words, 0, 30);
+                            $limitedText = implode(' ', $limitedWords);
+                        @endphp
 
-                                         {{ $limitedText }}{{ strlen($text) > strlen($limitedText) ? '...' : '' }}
-                                    </p>
-                                </div>
-                                <div>
-                                    <a href="{{ route('showArticle', $article->slug) }}" wire:navigate
-                                        class="inline-flex items-center gap-3 text-navy2 dark:text-navylight group relative">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="w-5 h-5 text-white dark:text-zinc-200 group-hover:text-white duration-300 z-10 ml-[10px]"
-                                            viewBox="0 0 16 16">
-                                            <path fill="currentColor" fill-rule="evenodd"
-                                                d="M5.47 13.03a.75.75 0 0 1 0-1.06L9.44 8L5.47 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06 0"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                        <span
-                                            class="ml-3 relative z-10 pr-[12px] group-hover:text-white duration-500 ease-in-out delay-75 group-hover:ml-0 font-semibold">Read
-                                            More</span>
-                                        <div
-                                            class="w-10 h-10 flex items-center duration-500 ease-in-out justify-center bg-gradient-to-br from-[#496fa8] dark:from-[#24395e] dark:to-[#1c2c47] to-[#395682]  rounded-full group-hover:w-full absolute left-0 z-0">
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full lg:w-[40%] px-5 text-zinc-500 dark:text-zinc-400  hidden lg:block">
-                            <p class="line-clamp-2">
-                                {{ $limitedText }}{{ strlen($text) > strlen($limitedText) ? '...' : '' }}
-                            </p>
-
-                        </div>
-                    </div>
-                @endforeach
+                            <x-article-card :image="$article->image" :created_at="$article->created_at->format('d F Y')" :categorySlug="$article->category->slug" :categoryName="$article->category->category"
+                                :slug="$article->slug" :title="$article->title" :excerpt="$limitedText" :bodyText="$article->body" />
+                    @endforeach
+                </div>
             </div>
         </div>
     </section>
@@ -363,7 +331,7 @@
                                     class="text-5xl font-black lg:text-[85px] text-[#cdd4e6] dark:text-zinc-700  font-plusjakartasans select-none">
                                     HM-TIF UMRI
                                     <span class="text-navy2 dark:text-navy select-none inline-block">
-                                    ~
+                                        ~
                                     </span>
                                 </div>
                             </li>
@@ -385,7 +353,7 @@
 
     <section class="pb-10 lg:pb-24">
         <div class="container mx-auto px-5">
-            <div class="bg-navy2 dark:bg-navy py-14 px-8 rounded-3xl">
+            <div class="bg-navy2 dark:bg-navy py-14 px-8 rounded-3xl" data-aos="fade-up">
                 <h1
                     class="text-2xl md:text-4xl max-w-5xl mx-auto lg:text-5xl font-bold font-plusjakartasans text-center text-[#a3c4f5] dark:text-[#84a4d3]">
                     Daftarkan dirimu sekarang di Himpunan Mahasiswa Teknik Informatika

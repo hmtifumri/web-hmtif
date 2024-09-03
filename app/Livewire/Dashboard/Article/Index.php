@@ -19,7 +19,7 @@ class Index extends Component
 
     public function render()
     {
-        $articles = Article::where('title', 'like', '%' . $this->search . '%')->paginate(15)->withQueryString()->onEachSide(1);
+        $articles = Article::where('title', 'like', '%' . $this->search . '%')->latest()->paginate(15)->withQueryString()->onEachSide(1);
         return view('livewire.dashboard.article.index', [
             'articles' => $articles
         ]);

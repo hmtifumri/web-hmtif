@@ -54,7 +54,7 @@ class ArticleByCategory extends Component
                 break;
         }
 
-        $articles = $query->paginate(10)->withQueryString()->onEachSide(1);
+        $articles = $query->where('is_published', '1')->latest()->paginate(10)->withQueryString()->onEachSide(1);
 
         $years = Article::where('category_id', $this->kategori->id)
             ->selectRaw('YEAR(created_at) as year')

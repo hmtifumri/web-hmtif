@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\Validate;
-use Illuminate\Support\Str; 
+use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
 
 class Detail extends Component
@@ -37,44 +37,48 @@ class Detail extends Component
 
     public function updatedImage()
     {
-        $divisi = Divisi::where('id', $this->divisiId)->first();
+        try {
+            $divisi = Divisi::where('id', $this->divisiId)->first();
 
-        if (!$divisi) {
-            return $this->redirect(route('periode.dashboard'), navigate: true);
-        }
+            if (!$divisi) {
+                return $this->redirect(route('periode.dashboard'), navigate: true);
+            }
 
-        $existingImage = DB::table('divisi-image')
-            ->where('divisi_id', $divisi->id)
-            ->where('periode_id', $this->periode->id)
-            ->first();
+            $existingImage = DB::table('divisi-image')
+                ->where('divisi_id', $divisi->id)
+                ->where('periode_id', $this->periode->id)
+                ->first();
 
-        if ($existingImage) {
-            // Delete the existing image
-            Storage::disk('public')->delete($existingImage->image);
+            if ($existingImage) {
+                // Delete the existing image
+                Storage::disk('public')->delete($existingImage->image);
 
-            // Update with the new image
-            $imageName = Str::random(18) . '.' . $this->image->getClientOriginalExtension();
-            $imagePath = $this->image->storeAs('assets/img/kepengurusan/' . str_replace('/', '-', $this->periode->periode) . '/' . $divisi->singkatan, $imageName, 'public');
+                // Update with the new image
+                $imageName = Str::random(18) . '.' . $this->image->getClientOriginalExtension();
+                $imagePath = $this->image->storeAs('assets/img/kepengurusan/' . str_replace('/', '-', $this->periode->periode) . '/' . $divisi->singkatan, $imageName, 'public');
 
-            DB::table('divisi-image')
-                ->where('id', $existingImage->id)
-                ->update([
+                DB::table('divisi-image')
+                    ->where('id', $existingImage->id)
+                    ->update([
+                        'image' => $imagePath,
+                    ]);
+            } else {
+                // Insert new image
+                $imageName = Str::random(18) . '.' . $this->image->getClientOriginalExtension();
+                $imagePath = $this->image->storeAs('assets/img/kepengurusan/' . str_replace('/', '-', $this->periode->periode) . '/' . $divisi->singkatan, $imageName, 'public');
+
+                DB::table('divisi-image')->insert([
+                    'divisi_id' => $divisi->id,
                     'image' => $imagePath,
+                    'periode_id' => $this->periode->id,
                 ]);
-        } else {
-            // Insert new image
-            $imageName = Str::random(18) . '.' . $this->image->getClientOriginalExtension();
-            $imagePath = $this->image->storeAs('assets/img/kepengurusan/' . str_replace('/', '-', $this->periode->periode) . '/' . $divisi->singkatan, $imageName, 'public');
+            }
 
-            DB::table('divisi-image')->insert([
-                'divisi_id' => $divisi->id,
-                'image' => $imagePath,
-                'periode_id' => $this->periode->id,
-            ]);
+            session()->flash('success', 'Gambar ' . $divisi->singkatan . ' berhasil ditambahkan');
+            $this->redirect(route('detail.periode', str_replace('/', '-', $this->periode->periode)), navigate: true);
+        } catch (\Throwable $th) {
+            session()->flash('error', 'Terjadi kesalahan saat menambahkan gambar: ' . $th->getMessage());
         }
-
-        session()->flash('success', 'Gambar ' . $divisi->singkatan . ' berhasil ditambahkan');
-        $this->redirect(route('detail.periode', str_replace('/', '-', $this->periode->periode)), navigate: true);
     }
 
     public function render()

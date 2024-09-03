@@ -4,11 +4,11 @@
     <section class="pb-10 lg:pb-24 lg:pt-14">
         <div class="container mx-auto px-5">
             @include('components.alert')
-            <h1 class="title uppercase text-center mx-auto max-w-3xl">struktur kepengurusan {{ $periode->periode }}</h1>
+            <h1 class="title uppercase text-center mx-auto max-w-3xl" data-aos="fade-up">struktur kepengurusan {{ $periode->periode }}</h1>
             <div class="mt-4 lg:mt-20">
                 <div class="flex flex-wrap items-center justify-between -mx-5 lg:-mx-10">
                     @if ($users == null)
-                        <div class="text-center text-sm text-gray-500 mx-auto">
+                        <div class="text-center text-sm text-gray-500 mx-auto" data-aos="fade-up">
                             Belum ada data
                         </div>
                     @else
@@ -17,8 +17,8 @@
                                 @if ($index == 0)
                                     <!-- Logo will be inserted after Bupati -->
                                     <div class="w-full md:w-1/2 lg:w-1/3 px-5 lg:px-10 group order-1 p-4">
-                                        <div class="relative overflow-hidden rounded-3xl">
-                                            <img src="{{ asset($users[$role]->gambar) }}" class="w-full"
+                                        <div class="relative overflow-hidden rounded-3xl" data-aos="fade-up">
+                                            <img src="{{ asset($users[$role]->gambar) }}" class="w-full group-hover:scale-110 duration-500 ease-in-out"
                                                 alt="">
                                             <div
                                                 class="absolute inset-0 group-hover:bg-zinc-900/60 dark:group-hover:bg-zinc-950/70 group-hover:backdrop-blur-sm duration-500 ease-in-out">
@@ -28,9 +28,12 @@
                                                         <h3
                                                             class="text-2xl 2xl:text-3xl text-white font-semibold font-plusjakartasans">
                                                             {{ $users[$role]->name }}
+                                                            <span class="text-sm block font-medium mt-1 opacity-0 group-hover:opacity-100 duration-500 ease-in-out">
+                                                                {{ $users[$role]->nim }}
+                                                            </span>
                                                         </h3>
-                                                        <p class="text-white capitalize">
-                                                            {{ ucfirst(str_replace('_', ' ', $users[$role]->jabatan)) }}
+                                                        <p class="text-white capitalize -mt-6 group-hover:mt-2 duration-500 ease-in-out">
+                                                            ~ {{ ucfirst(str_replace('_', ' ', $users[$role]->jabatan)) }} ~
                                                         </p>
                                                     </div>
                                                 </div>
@@ -41,11 +44,11 @@
                                     <!-- Insert logo before Wakil Bupati -->
                                     <div class="w-full lg:w-1/3 px-5 lg:px-10 order-2 p-4 mb-6 lg:mb-0">
                                         <img src="{{ asset('assets/img/logo.png') }}"
-                                            class="max-w-[250px] w-full lg:max-w-[350px] mx-auto" alt="Logo HMTIF">
+                                            class="max-w-[250px] w-full lg:max-w-[350px] mx-auto" alt="Logo HMTIF" data-aos="fade-up">
                                     </div>
                                     <div class="w-full md:w-1/2 lg:w-1/3 px-5 lg:px-10 group order-3 p-4">
-                                        <div class="relative overflow-hidden rounded-3xl">
-                                            <img src="{{ asset($users[$role]->gambar) }}" class="w-full"
+                                        <div class="relative overflow-hidden rounded-3xl" data-aos="fade-up">
+                                            <img src="{{ asset($users[$role]->gambar) }}" class="w-full group-hover:scale-110 duration-500 ease-in-out"
                                                 alt="">
                                             <div
                                                 class="absolute inset-0 group-hover:bg-zinc-900/60 dark:group-hover:bg-zinc-950/70 group-hover:backdrop-blur-sm duration-500 ease-in-out">
@@ -55,9 +58,12 @@
                                                         <h3
                                                             class="text-2xl 2xl:text-3xl text-white font-semibold font-plusjakartasans">
                                                             {{ $users[$role]->name }}
+                                                            <span class="text-sm block font-medium mt-1 opacity-0 group-hover:opacity-100 duration-500 ease-in-out">
+                                                                {{ $users[$role]->nim }}
+                                                            </span>
                                                         </h3>
-                                                        <p class="text-white capitalize">
-                                                            {{ ucfirst(str_replace('_', ' ', $users[$role]->jabatan)) }}
+                                                        <p class="text-white capitalize -mt-6 group-hover:mt-2 duration-500 ease-in-out">
+                                                            ~ {{ ucfirst(str_replace('_', ' ', $users[$role]->jabatan)) }} ~
                                                         </p>
                                                     </div>
                                                 </div>
@@ -72,11 +78,11 @@
 
                 <div
                     class="flex flex-wrap items-center justify-center lg:justify-between -mx-4 lg:-mx-8 sm:px-8 lg:px-10 mt-0 lg:mt-16">
-                    @foreach (['sekum', 'sekretaris', 'bendum'] as $role)
+                    @foreach (['sekum', 'sekretaris', 'bendum'] as $i => $role)
                         @if (isset($users[$role]))
                             <div class="w-full sm:w-1/2 md:w-1/3 p-4 lg:px-8 group">
-                                <div class="relative overflow-hidden rounded-3xl">
-                                    <img src="{{ asset($users[$role]->gambar) }}" class="w-full"
+                                <div class="relative overflow-hidden rounded-3xl" data-aos="fade-up" data-aos-delay="{{ $i * 100 }}">
+                                    <img src="{{ asset($users[$role]->gambar) }}" class="w-full group-hover:scale-110 duration-500 ease-in-out"
                                         alt="">
                                     <div
                                         class="absolute inset-0 group-hover:bg-zinc-900/60 dark:group-hover:bg-zinc-950/70 group-hover:backdrop-blur-sm duration-500 ease-in-out">
@@ -86,14 +92,17 @@
                                                 <h3
                                                     class="text-2xl 2xl:text-3xl text-white font-semibold font-plusjakartasans">
                                                     {{ $users[$role]->name }}
+                                                    <span class="text-sm block font-medium mt-1 opacity-0 group-hover:opacity-100 duration-500 ease-in-out">
+                                                        {{ $users[$role]->nim }}
+                                                    </span>
                                                 </h3>
-                                                <p class="text-white capitalize">
+                                                <p class="text-white capitalize -mt-6 group-hover:mt-2 duration-500 ease-in-out">
                                                     @if ($users[$role]->jabatan == 'sekum')
-                                                        Sekretaris Umum
+                                                        ~ Sekretaris Umum ~
                                                     @elseif($users[$role]->jabatan == 'bendum')
-                                                        Bendahara Umum
+                                                        ~ Bendahara Umum ~
                                                     @else
-                                                        {{ ucfirst($users[$role]->jabatan) }}
+                                                        ~ {{ ucfirst($users[$role]->jabatan) }} ~
                                                     @endif
                                                 </p>
                                             </div>
@@ -129,7 +138,7 @@
                             ->first();
                     @endphp
                     @if ($divisiImage != null)
-                        <div class="w-full rounded-3xl overflow-hidden relative group">
+                        <div class="w-full rounded-3xl overflow-hidden relative group"  data-aos="fade-up" data-aos-delay="{{ $i * 100 }}">
                             <a href="{{ route('divisi.show', [str_replace('/', '-', $periode->periode), $div->singkatan]) }}" wire:navigate>
                                 <img class="group-hover:scale-110 object-cover duration-500 ease-in-out rounded-3xl h-full"
                                     src="{{ asset($divisiImage) }}" alt="{{ $div->divisi }}">

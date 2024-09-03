@@ -122,27 +122,27 @@ body {
 }
 
 .error-msg {
-    @apply text-sm text-red-600 mt-1 block
+    @apply text-sm text-red-600 mt-1 block;
 }
 
 .btn-primary {
-    @apply bg-navy2 text-white py-3 px-4 rounded-lg font-semibold
+    @apply bg-navy2 text-white py-3 px-4 rounded-lg font-semibold;
 }
 
 .btn-danger {
-    @apply bg-red-200 text-red-800 py-3 px-4 rounded-lg font-semibold
+    @apply bg-red-200 text-red-800 py-3 px-4 rounded-lg font-semibold;
 }
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
+input[type="number"] {
+    -moz-appearance: textfield;
 }
 
 table {
@@ -161,6 +161,18 @@ trix-editor {
     @apply min-h-[300px] bg-white border border-gray-200 rounded-lg text-sm focus:ring-1 focus:border-blue-500 focus:ring-blue-500 !important;
 }
 
-.artikel-body  {
-    @apply text-zinc-700
+.artikel-body {
+    @apply text-zinc-700 dark:text-zinc-400;
+}
+
+.navbar-content-container {
+    @apply inline-flex flex-col gap-6 mt-5 sm:flex-row sm:items-center justify-end sm:justify-center  sm:mt-0 pl-3  pb-4 transition-all duration-300 ease-in-out w-full sm:w-auto;
+}
+
+.navbar-scrolled {
+    @apply bg-white/80 dark:bg-zinc-800/80 backdrop-blur-lg sm:px-8 sm:py-3 sm:rounded-full fixed top-8 z-[9999] sm:border sm:border-zinc-200 dark:border-zinc-700;
+}
+
+.container {
+    @apply overflow-hidden;
 }

@@ -2,36 +2,37 @@
     <x-slot name="title">{{ $title }}</x-slot>
 
     <article class="pb-10 lg:pb-24 lg:pt-14">
-        <div class="container mx-auto px-5">
+        <div class="container mx-auto px-5 max-w-4xl">
             <h1
-                class="capitalize text-center mb-10 text-2xl sm:text-3xl lg:text-5xl font-bold font-plusjakartasans text-zinc-800">
+                class="capitalize text-center mb-10 text-2xl sm:text-3xl lg:text-5xl font-bold font-plusjakartasans text-zinc-800 lg:!leading-tight dark:text-zinc-200" data-aos="fade-up">
                 {{ $title }}
             </h1>
             <div class="mb-8">
-                <img src="{{ asset($article->image) }}" class="w-full rounded-xl md:rounded-2xl lg:rounded-[40px]"
-                    alt="{{ $title }}">
+                <img src="{{ asset($article->image) }}" class="w-full rounded-xl md:rounded-2xl lg:rounded-3xl"
+                    alt="{{ $title }}" data-aos="fade-up">
             </div>
             <div
-                class="flex items-center justify-center text-xl text-navy dark:text-navy2 font-semibold font-plusjakartasans">
-                By Admin · {{ $article->created_at->format('d F Y') }} · <a
-                    href="{{ route('artikelByKategori', $article->category->slug) }}" wire:navigate
+                class="flex items-center justify-center text-sm sm:text-lg text-navy dark:text-navy2 gap-1 sm:gap-2 font-semibold font-plusjakartasans" data-aos="fade-up">
+                <div>By Admin</div> · 
+                <div>{{ $article->created_at->format('d F Y') }}</div> · 
+                <a href="{{ route('artikelByKategori', $article->category->slug) }}" wire:navigate
                     class="hover:underline">{{ $article->category->category }}</a>
             </div>
 
-            <div class="mt-14 artikel-body">
+            <div class="mt-10 artikel-body font-medium" data-aos="fade-up">
                 {!! $article->body !!}
             </div>
 
-            <div class="mt-10">
+            <div class="mt-10" data-aos="fade-up">
                 <div class="sm:flex sm:items-center sm:justify-between sm:-mx-4 gap-4 md:gap-8 space-y-5 sm:space-y-0">
                     @if ($previousArticle)
-                        <div class="inline-flex items-center gap-3 p-5 bg-cover relative text-white before:absolute before:inset-0 before:bg-black/30 rounded-2xl overflow-hidden before:-z-10 z-10 sm:!bg-none sm:before:bg-transparent sm:text-zinc-800 max-w-xl" style="background-image: url({{ asset($previousArticle->image) }})">
+                        <div class="inline-flex items-center gap-3 p-5 bg-cover relative text-white before:absolute before:inset-0 before:bg-black/70 rounded-2xl overflow-hidden before:-z-10 z-10 sm:!bg-none sm:before:bg-transparent sm:text-zinc-800 max-w-xl" style="background-image: url({{ asset($previousArticle->image) }})">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="2" stroke="currentColor" class="size-5 shrink-0">
+                                stroke-width="2" stroke="currentColor" class="size-5 shrink-0 text-zinc-800 dark:text-zinc-200">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
                             </svg>
                             <a href="{{ route('showArticle', $previousArticle->slug) }}"
-                                class="capitalize text-xl font-semibold font-plusjakartasans line-clamp-2 hover:text-navy dark:hover:text-navy2" wire:navigate>
+                                class="capitalize text-xl font-semibold font-plusjakartasans line-clamp-2 hover:text-navy dark:hover:text-navylight dark:text-zinc-200" wire:navigate>
                                 {{ $previousArticle->title }}
                             </a>
                         </div>
@@ -54,12 +55,12 @@
                      </a>
                     </div>
                     @if ($nextArticle)
-                        <div class="inline-flex items-center gap-3 p-5 bg-cover relative text-white before:absolute before:inset-0 before:bg-black/30 rounded-2xl overflow-hidden before:-z-10 z-10 sm:!bg-none sm:before:bg-transparent sm:text-zinc-800 max-w-xl" style="background-image: url({{ asset($nextArticle->image) }})">
-                           <a href="{{ route('showArticle', $nextArticle->slug) }}" class="capitalize text-xl font-semibold font-plusjakartasans line-clamp-2 hover:text-navy dark:hover:text-navy2 text-right" wire:navigate>
+                        <div class="inline-flex items-center gap-3 p-5 bg-cover relative text-white before:absolute before:inset-0 before:bg-black/70 rounded-2xl overflow-hidden before:-z-10 z-10 sm:!bg-none sm:before:bg-transparent sm:text-zinc-800 max-w-xl" style="background-image: url({{ asset($nextArticle->image) }})">
+                           <a href="{{ route('showArticle', $nextArticle->slug) }}" class="capitalize text-xl font-semibold font-plusjakartasans line-clamp-2 hover:text-navy dark:hover:text-navylight dark:text-zinc-200 text-right" wire:navigate>
                                {{ $nextArticle->title }}
                            </a>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="2" stroke="currentColor" class="size-5 shrink-0">
+                                stroke-width="2" stroke="currentColor" class="size-5 shrink-0 text-zinc-800 dark:text-zinc-200">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                             </svg>
                         </div>

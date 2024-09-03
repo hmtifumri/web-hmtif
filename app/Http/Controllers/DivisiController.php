@@ -15,12 +15,12 @@ class DivisiController extends Controller
         $divisi = Divisi::where('singkatan', $divisi)->select('id', 'singkatan')->first();
         $roles = ['kadiv', 'stafsus', 'anggota', 'magang'];
 
-        // Fetch users or data based on periode and divisi
         $users = User::where('divisi_id', $divisi->id)
             ->where('periode_id', $periode->id)
             ->get()
             ->sortBy(function ($user) use ($roles) {
-                return array_search($user->jabatan, $roles);
+                $roleIndex = array_search($user->jabatan, $roles);
+                return [$roleIndex, $user->jabatan == 'anggota' || $user->jabatan == 'magang' ? strtolower($user->name) : null];
             });
 
         if ($users->isEmpty()) {

@@ -89,7 +89,7 @@
                         @if (!empty($divisiOptions))
                             <div>
                                 <x-input-label for="divisi" :value="__('Divisi')" />
-                                <select wire:model="divisi" id="divisi" class="form-input">
+                                <select wire:model.live="divisi" id="divisi" class="form-input">
                                     <option value="">{{ __('Pilih Divisi') }}</option>
                                     @foreach ($divisiOptions as $key => $value)
                                         <option value="{{ $key }}">{{ $value }}</option>
@@ -103,9 +103,9 @@
                         @if (!empty($ksbJabatanOptions) || !empty($defaultJabatanOptions))
                             <div>
                                 <x-input-label for="jabatan" :value="__('Jabatan')" />
-                                <select wire:model="jabatan" id="jabatan" class="form-input">
+                                <select wire:model.live="jabatan" id="jabatan" class="form-input">
                                     <option value="">{{ __('Pilih Jabatan') }}</option>
-                                    @if ($divisi == array_search('ksb', $divisiOptions))
+                                    @if ($divisi == 2)
                                         @foreach ($ksbJabatanOptions as $key => $value)
                                             <option value="{{ $key }}">{{ $value }}</option>
                                         @endforeach
@@ -122,7 +122,7 @@
                         @endif
                         <div>
                             <x-input-label for="periode" :value="__('Periode')" />
-                            <select wire:model="periode" id="periode" class="form-input">
+                            <select wire:model.live="periode" id="periode" class="form-input">
                                 <option value="">{{ __('Periode') }}</option>
                                 @foreach ($periodeOptions as $item)
                                     <option value="{{ $item->id }}">{{ $item->periode }}</option>

@@ -42,6 +42,9 @@
                                         Judul
                                     </th>
                                     <th scope="col">
+                                        Kategori
+                                    </th>
+                                    <th scope="col">
                                         Status
                                     </th>
                                     <th scope="col">
@@ -62,6 +65,11 @@
                                                 class="hover:underline inline-block text-wrap line-clamp-2 max-w-sm capitalize">
                                                 {{ $article->title }}
                                             </a>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                {{ $article->category->category }}
+                                            </p>
                                         </td>
                                         <td>
                                             <button type="button" wire:click='setPublish({{ $article->id }})'

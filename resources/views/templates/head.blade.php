@@ -27,6 +27,7 @@
     <!-- Styles -->
     <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
     {{-- <link href="https://cdn.jsdelivr.net/gh/yesiamrocks/cssanimation.io@1.0.3/cssanimation.min.css" rel="stylesheet"> --}}
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
     {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])

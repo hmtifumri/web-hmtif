@@ -18,7 +18,7 @@
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-[#F5F7F8]">
             <div>
-                <a href="/" wire:navigate>
+                <a href="/">
                    <img src="{{ asset('assets/img/logo.png') }}" class="mx-auto w-28" alt="Logo {{ config('app.name') }}">
                 </a>
             </div>

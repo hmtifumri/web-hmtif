@@ -78,9 +78,9 @@ class Edit extends Component
         $this->ksbJabatanOptions = [
             'bupati' => 'Bupati',
             'wakil_bupati' => 'Wakil Bupati',
-            'sekretaris umum' => 'Sekretaris Umum',
+            'sekum' => 'Sekretaris Umum',
             'sekretaris' => 'Sekretaris',
-            'bendahara umum' => 'Bendahara Umum',
+            'bendum' => 'Bendahara Umum',
         ];
 
         $this->defaultJabatanOptions = [
@@ -92,72 +92,76 @@ class Edit extends Component
 
         $this->periodeOptions = Periode::all();
 
-        if ($this->user->divisi_id != array_search('ksb', $this->divisiOptions)) {
-            if (User::whereIn('jabatan', array_keys($this->ksbJabatanOptions))->exists()) {
-                unset($this->divisiOptions[array_search('ksb', $this->divisiOptions)]);
-                $this->ksbJabatanOptions = [];
-            }
-        }
+        // if ($this->user->divisi_id != array_search('ksb', $this->divisiOptions)) {
+        //     if (User::whereIn('jabatan', array_keys($this->ksbJabatanOptions))->exists()) {
+        //         unset($this->divisiOptions[array_search('ksb', $this->divisiOptions)]);
+        //         $this->ksbJabatanOptions = [];
+        //     }
+        // }
+
     }
 
     public function updatedDivisi($value)
     {
         $ksbId = array_search('ksb', $this->divisiOptions);
-        if ($value == $ksbId) {
-            $this->showKsbOptions = true;
-        } else {
-            $this->showKsbOptions = false;
-        }
+        $this->showKsbOptions = $value == $ksbId;
     }
 
     public function save()
     {
-        if (Auth::user()->jabatan != 'admin' && Auth::user()->id != $this->user->id) {
-            abort(403);
-        }
-
-        $this->validate();
-
-        if ($this->croppedImage) {
-            if ($this->user->gambar) {
-                $oldImagePath = 'assets/img/kepengurusan/' . str_replace('/', '-', $this->user->periode->periode) . '/' . $this->user->divisi->singkatan . '/' . $this->user->gambar;
-                Storage::disk('public')->delete($oldImagePath);
+        try {
+            if (Auth::user()->jabatan != 'admin' && Auth::user()->id != $this->user->id) {
+                abort(403);
             }
 
-            $imageName = Str::slug($this->user->name) . '-' . $this->user->nim . '-' . time() . '.' . $this->croppedImage->getClientOriginalExtension();
-            $imagePath = $this->croppedImage->storeAs('assets/img/kepengurusan/' . str_replace('/', '-', $this->user->periode->periode) . '/' . $this->user->divisi->singkatan, $imageName, 'public');
+            $this->validate();
 
-            $this->user->update(['gambar' => $imagePath]);
-        }
+            if ($this->croppedImage) {
+                if ($this->user->gambar) {
+                    $oldImagePath = 'assets/img/kepengurusan/' . str_replace('/', '-', $this->user->periode->periode) . '/' . $this->user->divisi->singkatan . '/' . $this->user->gambar;
+                    Storage::disk('public')->delete($oldImagePath);
+                }
 
-        if ((int)$this->periode != $this->user->periode_id || $this->divisi != $this->user->divisi_id) {
-            $oldPeriodePath = 'assets/img/kepengurusan/' . str_replace('/', '-', $this->user->periode->periode) . '/' . $this->user->divisi->singkatan;
-            $newPeriodePath = 'assets/img/kepengurusan/' . str_replace('/', '-', $this->periodeOptions->find((int)$this->periode)->periode) . '/' . Divisi::find((int)$this->divisi)->singkatan;
+                $imageName = Str::slug($this->user->name) . '-' . $this->user->nim . '-' . time() . '.' . $this->croppedImage->getClientOriginalExtension();
+                $imagePath = $this->croppedImage->storeAs('assets/img/kepengurusan/' . str_replace('/', '-', $this->user->periode->periode) . '/' . $this->user->divisi->singkatan, $imageName, 'public');
 
-            if (!Storage::disk('public')->exists($newPeriodePath)) {
-                Storage::disk('public')->makeDirectory($newPeriodePath);
+                $this->user->update(['gambar' => $imagePath]);
             }
 
-            $oldImagePath = $oldPeriodePath . '/' . $this->user->gambar;
-            $newImagePath = $newPeriodePath . '/' . $this->user->gambar;
+            if ((int)$this->periode != $this->user->periode_id || $this->divisi != $this->user->divisi_id) {
+                $oldPeriodePath = 'assets/img/kepengurusan/' . str_replace('/', '-', $this->user->periode->periode) . '/' . $this->user->divisi->singkatan;
+                $newPeriode = Periode::find((int)$this->periode);
+                $newDivisi = Divisi::find((int)$this->divisi);
+                $newPeriodePath = 'assets/img/kepengurusan/' . str_replace('/', '-', $newPeriode->periode) . '/' . $newDivisi->singkatan;
 
-            if (Storage::disk('public')->exists($oldImagePath)) {
-                Storage::disk('public')->move($oldImagePath, $newImagePath);
+                if (!Storage::disk('public')->exists($newPeriodePath)) {
+                    Storage::disk('public')->makeDirectory($newPeriodePath);
+                }
+
+                $oldImagePath = $oldPeriodePath . '/' . $this->user->gambar;
+                $newImagePath = $newPeriodePath . '/' . $this->user->gambar;
+
+                if (Storage::disk('public')->exists($oldImagePath)) {
+                    Storage::disk('public')->move($oldImagePath, $newImagePath);
+                }
             }
+
+            $this->user->update([
+                'name' => $this->name,
+                'email' => $this->email,
+                'divisi_id' => $this->divisi,
+                'jabatan' => $this->jabatan,
+                'periode_id' => $this->periode,
+                'gender' => $this->gender,
+                'phone' => $this->phone,
+                'nim' => $this->nim,
+            ]);
+
+            session()->flash('success', 'Berhasil mengupdate data ' . $this->user->name);
+        } catch (\Throwable $th) {
+            session()->flash('error', 'Terjadi kesalahan saat mengupdate data: ' . $th->getMessage());
+            return back()->withInput();
         }
-
-        $this->user->update([
-            'name' => $this->name,
-            'email' => $this->email,
-            'divisi_id' => $this->divisi,
-            'jabatan' => $this->jabatan,
-            'periode_id' => $this->periode,
-            'gender' => $this->gender,
-            'phone' => $this->phone,
-            'nim' => $this->nim,
-        ]);
-
-        session()->flash('success', 'Berhasil mengupdate data ' . $this->user->name);
     }
 
     public function render()

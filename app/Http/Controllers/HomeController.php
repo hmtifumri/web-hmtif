@@ -7,16 +7,19 @@ use App\Models\Categories;
 use App\Models\Periode;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
 	public function index()
 	{
-		$articles = Article::orderBy('created_at', 'desc')->take(5)->get();
+		$articles = Article::orderBy('created_at', 'desc')->where('is_published', '1')->take(3)->get();
+		$banners = DB::table('banners')->latest()->get();
 		return view('home', [
 			'title' => 'Beranda',
-			'articles' => $articles
+			'articles' => $articles,
+			'banners' => $banners
 		]);
 	}
 
