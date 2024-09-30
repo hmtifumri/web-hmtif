@@ -94,7 +94,6 @@ class Create extends Component
         try {
             $imageName = Str::slug($this->title) . '.' . $this->image->getClientOriginalExtension();
             $imagePath = $this->image->storeAs('assets/img/articles/' . date('Y'), $imageName, 'public');
-            dd($imagePath);
 
             $data = [
                 'title' => $this->title,
