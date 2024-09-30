@@ -93,7 +93,7 @@
         </div>
         <div class="mt-10">
             <div class="bg-navy rounded-xl sm:rounded-2xl py-3 px-4 text-sm sm:text-base text-center text-zinc-200" >
-                © Copyright {{ date('Y') }}, All Rights Reserved
+                Copyright © {{ date('Y') }}, All Rights Reserved
             </div>
         </div>
     </div>

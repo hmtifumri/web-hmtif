@@ -8,7 +8,7 @@ body {
 }
 
 body {
-    @apply antialiased bg-[#EBF0F9] font-sans dark:bg-zinc-950 dark:text-zinc-300;
+    @apply antialiased bg-background font-sans dark:bg-zinc-950 dark:text-zinc-300;
 }
 
 .title {
@@ -173,6 +173,54 @@ trix-editor {
     @apply bg-white/80 dark:bg-zinc-800/80 backdrop-blur-lg sm:px-8 sm:py-3 sm:rounded-full fixed top-8 z-[9999] sm:border sm:border-zinc-200 dark:border-zinc-700;
 }
 
+.navbar-scrolled .hs-dropdown-menu {
+    @apply !absolute;
+}
+
 .container {
     @apply overflow-hidden;
+}
+
+.flatpickr-day.today:hover,
+.flatpickr-day.today:focus {
+    @apply !bg-blue-500 !text-white;
+}
+
+.flatpickr-day.today {
+    @apply !border-blue-500;
+}
+
+.flatpickr-current-month {
+    @apply !text-base  mt-1;
+}
+
+.flatpickr-monthDropdown-months,
+.numInputWrapper .numInput {
+    @apply !font-semibold;
+}
+
+button[data-trix-action="attachFiles"] {
+    @apply !hidden;
+}
+
+span[data-trix-button-group="file-tools"] {
+    @apply !hidden;
+}
+
+trix-editor ul,
+.deskripsi-content ul,
+.artikel-body ul {
+    @apply list-disc list-inside space-y-2 ml-2 mt-2;
+}
+
+trix-editor ol,
+.deskripsi-content ol,
+.artikel-body ol {
+    @apply list-decimal list-inside space-y-2 ml-2 mt-2;
+}
+
+trix-editor a,
+.deskripsi-content a,
+.artikel-body a {
+    @apply text-blue-500 underline;
 }

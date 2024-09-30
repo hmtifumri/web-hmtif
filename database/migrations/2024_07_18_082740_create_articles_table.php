@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('author');
             $table->foreignId('category_id')->constrained('categories')->onUpdate('cascade')->onDelete('cascade');
             $table->boolean('is_published');
+            $table->bigInteger('views')->default(0);
             $table->timestamps();
         });
     }

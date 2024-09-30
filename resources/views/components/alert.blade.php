@@ -1,5 +1,5 @@
 @if (session()->has('error'))
-    <div id="error-alert" class="p-4">
+    <div id="error-alert" class="mb-4">
         <div class="w-full bg-white border border-gray-200 rounded-xl" role="alert">
             <div class="flex p-4">
                 <div class="flex-shrink-0">
@@ -20,7 +20,7 @@
     </div>
 @endif
 @if (session()->has('success'))
-    <div id="success-alert" class="p-4">
+    <div id="success-alert" class="mb-4">
         <div class="w-full bg-white border border-gray-200 rounded-xl" role="alert">
             <div class="flex p-4">
                 <div class="flex-shrink-0">

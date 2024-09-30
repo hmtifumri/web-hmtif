@@ -48,11 +48,19 @@ class Index extends Component
 
     public function loadPengurus()
     {
+        $user = Auth::user(); // Dapatkan user yang sedang login
+
         $query = User::where('periode_id', $this->periodeId)
             ->where('jabatan', '!=', 'admin');
 
-        if ($this->divisionFilter && $this->divisionFilter !== 'semua') {
-            $query->where('divisi_id', $this->divisionFilter);
+        // Jika user yang login adalah kadiv, filter hanya anggota divisi mereka
+        if ($user->jabatan === 'kadiv') {
+            $query->where('divisi_id', $user->divisi_id);
+        } else {
+            // Jika bukan kadiv, gunakan filter divisi yang dipilih
+            if ($this->divisionFilter && $this->divisionFilter !== 'semua') {
+                $query->where('divisi_id', $this->divisionFilter);
+            }
         }
 
         if ($this->search) {
@@ -65,27 +73,28 @@ class Index extends Component
 
         // Menyusun pengurus sesuai urutan jabatan yang diinginkan
         $this->pengurus = $query->orderByRaw("
-            CASE 
-                WHEN divisi_id = 2 THEN
-                    CASE 
-                        WHEN jabatan = 'bupati' THEN 1
-                        WHEN jabatan = 'wakil_bupati' THEN 2
-                        WHEN jabatan = 'sekum' THEN 3
-                        WHEN jabatan = 'sekretaris' THEN 4
-                        WHEN jabatan = 'bendum' THEN 5
-                        ELSE 6
-                    END
-                ELSE
-                    CASE 
-                        WHEN jabatan = 'kadiv' THEN 1
-                        WHEN jabatan = 'stafsus' THEN 2
-                        WHEN jabatan = 'anggota' THEN 3
-                        WHEN jabatan = 'magang' THEN 4
-                        ELSE 5
-                    END
-            END
-        ")->get();
+        CASE 
+            WHEN divisi_id = 2 THEN
+                CASE 
+                    WHEN jabatan = 'bupati' THEN 1
+                    WHEN jabatan = 'wakil_bupati' THEN 2
+                    WHEN jabatan = 'sekum' THEN 3
+                    WHEN jabatan = 'sekretaris' THEN 4
+                    WHEN jabatan = 'bendum' THEN 5
+                    ELSE 6
+                END
+            ELSE
+                CASE 
+                    WHEN jabatan = 'kadiv' THEN 1
+                    WHEN jabatan = 'stafsus' THEN 2
+                    WHEN jabatan = 'anggota' THEN 3
+                    WHEN jabatan = 'magang' THEN 4
+                    ELSE 5
+                END
+        END
+    ")->get();
     }
+
 
     public function render()
     {

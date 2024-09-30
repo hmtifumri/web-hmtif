@@ -21,4 +21,8 @@ class Divisi extends Model
     {
         return $this->hasMany(DivisiImage::class);
     }
+
+    public function proker() {
+        return $this->hasMany(Proker::class);
+    }
 }

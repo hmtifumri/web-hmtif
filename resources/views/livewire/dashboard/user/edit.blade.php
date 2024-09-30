@@ -1,12 +1,10 @@
 <div>
     @push('styles')
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.css"
-            integrity="sha512-087vysR/jM0N5cp13Vlp+ZF9wx6tKbvJLwPO8Iit6J7R+n7uIMMjg37dEgexOshDmDITHYY5useeSmfD1MYiQA=="
-            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="{{ asset('css/cropper.css') }}" />
     @endpush
 
     @include('components.alert')
-    <div class="flex flex-wrap -mx4">
+    <div class="flex flex-wrap -mx-4">
         <div class="w-full xl:w-1/2 p-4 order-2 xl:order-1">
             <div class="bg-white border p-8 rounded-xl">
                 @if ($user->phone == null && $user->gambar == null)
@@ -20,7 +18,7 @@
                 </div>
 
                 <form wire:submit.prevent="save">
-                    <div class="mb-4 inline-flex gap-3">
+                    <div class="mb-4 inline-flex items-center gap-3">
                         @if ($croppedImage)
                             <div>
                                 <img src="{{ $croppedImage->temporaryUrl() }}" alt="{{ $user->name }}"
@@ -155,9 +153,10 @@
 
                     <div class="mt-4">
                         <button class="btn-primary w-full inline-flex items-center justify-center gap-3">
-                            <div class="animate-spin inline-block size-5 border-[3px] border-current border-t-transparent text-white rounded-full" role="status" aria-label="loading" wire:loading wire:target="save">
+                            <div class="animate-spin inline-block size-5 border-[3px] border-current border-t-transparent text-white rounded-full"
+                                role="status" aria-label="loading" wire:loading wire:target="save">
                                 <span class="sr-only">Loading...</span>
-                              </div>
+                            </div>
                             {{ __('Update') }}
                         </button>
                     </div>
@@ -189,9 +188,7 @@
 </div>
 
 @push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"
-        integrity="sha512-JyCZjCOZoyeQZSd5+YEAcFgz2fowJ1F1hyJOXgtKu4llIa0KneLcidn5bwfutiehUTiOuK87A986BZJMko0eWQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{ asset('js/cropper.min.js') }}"></script>
     <script>
         let cropper;
         const openCropper = (event) => {

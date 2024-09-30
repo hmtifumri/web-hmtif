@@ -28,7 +28,7 @@ class Index extends Component
         if (Auth::user()->jabatan != 'admin' && Auth::user()->divisi_id != 7) {
             abort(404);
         }
-        
+
         $this->validate();
 
         try {
@@ -54,7 +54,8 @@ class Index extends Component
         }
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         if (Auth::user()->jabatan != 'admin' && Auth::user()->divisi_id != 7) {
             abort(404);
         }
@@ -75,7 +76,7 @@ class Index extends Component
         if (Auth::user()->jabatan != 'admin' && Auth::user()->divisi_id != 7) {
             abort(404);
         }
-        
+
         $banners = DB::table('banners')->latest()->get();
         return view('livewire.dashboard.banner.index', [
             'banners' => $banners

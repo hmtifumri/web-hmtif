@@ -1,7 +1,7 @@
 <div>
     @push('styles')
-        <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
-        <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/trix.css') }}">
+        <script type="text/javascript" src="{{ asset('js/trix.umd.min.js') }}"></script>
     @endpush
 
     <div class="max-w-3xl bg-white p-6 rounded-2xl shadow-lg shadow-gray-200/20">
@@ -20,24 +20,28 @@
             </div>
             <div>
                 @if ($image)
-                    <img src="{{ $image->temporaryUrl() }}" alt="Preview Gambar" class="max-w-52 shadow-lg shadow-gray-200 rounded-lg mb-3">
+                    <img src="{{ $image->temporaryUrl() }}" alt="Preview Gambar"
+                        class="max-w-52 shadow-lg shadow-gray-200 rounded-lg mb-3">
                 @endif
                 <x-input-label for="image" :value="__('Gambar')" />
-                <input type="file" class="form-input-file" id="image" wire:model="image" required accept="image/*">
+                <input type="file" class="form-input-file" id="image" wire:model="image" required
+                    accept="image/*">
                 @error('image')
                     <span class="error-msg">{{ $message }}</span>
                 @enderror
             </div>
             <div>
                 <x-input-label for="title" :value="__('Judul')" />
-                <input type="text" class="form-input" id="title" wire:model.live='title' autocomplete="off" required>
+                <input type="text" class="form-input" id="title" wire:model.live='title' autocomplete="off"
+                    required>
                 @error('title')
                     <span class="error-msg">{{ $message }}</span>
                 @enderror
             </div>
             <div>
                 <x-input-label for="slug" :value="__('Slug')" />
-                <input type="text" class="form-input" id="slug" wire:model.live='slug' autocomplete="off" required>
+                <input type="text" class="form-input" id="slug" wire:model.live='slug' autocomplete="off"
+                    required>
                 @error('slug')
                     <span class="error-msg">{{ $message }}</span>
                 @enderror
@@ -55,7 +59,12 @@
                     type="button" wire:click="draft">
                     Draft
                 </button>
-                <button class="btn-primary w-full" type="submit">
+                <button class="btn-primary w-full flex items-center gap-2 justify-center" type="submit">
+                    <div wire:loading wire:target="store"
+                        class="animate-spin inline-block size-4 border-[3px] border-current border-t-transparent text-white rounded-full"
+                        role="status" aria-label="loading">
+                        <span class="sr-only">Loading...</span>
+                    </div>
                     Publish
                 </button>
             </div>

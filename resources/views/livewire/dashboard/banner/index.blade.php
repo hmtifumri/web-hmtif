@@ -12,7 +12,7 @@
                                 class="form-input file:border-none file:text-sm file:font-semibold file:mr-3 file:bg-blue-100 file:text-blue-800 file:rounded"
                                 id="banner" wire:model.live='banner' autocomplete="off">
                             <small class="text-gray-500">*Resolusi 1920 x 1080, maks 3mb</small>
-                            @error('banner')
+                            @error('banner.*')
                                 <span class="error-msg">{{ $message }}</span>
                             @enderror
                         </div>
@@ -51,7 +51,7 @@
                 @foreach ($banners as $i => $banner)
                     <div class="w-full min-[460px]:w-1/2 md:w-1/3 lg:w-1/4 px-4 group">
                         <div class="relative overflow-hidden rounded-xl">
-                            <img class="w-full rounded-xl" src="{{ asset($banner->image) }}" alt="banner">
+                            <img class="w-full rounded-xl" src="{{ asset($banner->image) }}" alt="banner" loading="lazy">
                             <div
                                 class="absolute inset-0 group-hover:bg-black/60 group-hover:backdrop-blur-sm duration-300 ease-in-out flex items-center justify-center opacity-0 group-hover:opacity-100">
                                 <button type="button" class="flex items-center justify-center w-9 h-9 bg-red-500 rounded-full text-white cursor-pointer hover:bg-red-800 duration-300" wire:click="delete({{ $banner->id }})" wire:confirm.prompt='Kamu yakin?\n\nKetik "HAPUS" untuk mengapus banner ini. Banner yang di hapus tidak dapat dikembalikan|HAPUS'>

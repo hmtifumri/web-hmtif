@@ -80,78 +80,78 @@ class DatabaseSeeder extends Seeder
             'jabatan' => 'admin',
             'gender' => 'L',
             'periode_id' => 1,
-            'nim' => '230401089'
+            'nim' => '110022999'
         ]);
 
         User::factory()->create([
             'name' => 'Ihkram Mulya',
             'email' => 'ihkram@gmail.com',
-            'password' => bcrypt('ihkram123'),
+            'password' => bcrypt('210401108'),
             'divisi_id' => 2,
             'jabatan' => 'bupati',
             'gender' => 'L',
             'periode_id' => 1,
-            'nim' => '230401090'
+            'nim' => '210401108'
         ]);
         User::factory()->create([
             'name' => 'Angga Yudha Wibowo',
             'email' => 'angga@gmail.com',
-            'password' => bcrypt('angga123'),
+            'password' => bcrypt('210401133'),
             'divisi_id' => 2,
             'jabatan' => 'wakil_bupati',
             'gender' => 'L',
             'periode_id' => 1,
-            'nim' => '230401091'
+            'nim' => '210401133'
         ]);
         User::factory()->create([
             'name' => 'Fahriasalsabilla',
             'email' => 'caca@gmail.com',
-            'password' => bcrypt('caca123'),
+            'password' => bcrypt('210401245'),
             'divisi_id' => 2,
             'jabatan' => 'sekum',
             'gender' => 'P',
             'periode_id' => 1,
-            'nim' => '230401092'
+            'nim' => '210401245'
         ]);
         User::factory()->create([
             'name' => 'Paula Carnelian',
             'email' => 'paula@gmail.com',
-            'password' => bcrypt('paula123'),
+            'password' => bcrypt('220401156'),
             'divisi_id' => 2,
             'jabatan' => 'sekretaris',
             'gender' => 'P',
             'periode_id' => 1,
-            'nim' => '230401096'
+            'nim' => '220401156'
         ]);
         User::factory()->create([
             'name' => 'Fauza Addinunnisa',
             'email' => 'fauza@gmail.com',
-            'password' => bcrypt('fauza123'),
+            'password' => bcrypt('210401130'),
             'divisi_id' => 2,
             'jabatan' => 'bendum',
             'gender' => 'P',
             'periode_id' => 1,
-            'nim' => '230401093'
+            'nim' => '210401130'
         ]);
         User::factory()->create([
             'name' => 'Diva Salsabilla',
             'email' => 'diva@gmail.com',
-            'password' => bcrypt('diva123'),
+            'password' => bcrypt('220401040'),
             'divisi_id' => 7,
             'jabatan' => 'kadiv',
             'gender' => 'P',
             'periode_id' => 1,
-            'nim' => '230401094'
+            'nim' => '220401040'
         ]);
         User::factory()->create([
             'name' => 'Muhammad Farhan',
             'email' => 'farhan@gmail.com',
-            'password' => bcrypt('farhan123'),
+            'password' => bcrypt('230401089'),
             'divisi_id' => 7,
             'jabatan' => 'anggota',
             'gender' => 'L',
             'periode_id' => 1,
-            'nim' => '230401095'
+            'nim' => '230401089'
         ]);
 
         DB::table('pengaturan_pendaftaran')->insert([

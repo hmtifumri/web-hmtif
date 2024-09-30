@@ -4,6 +4,9 @@ use App\Livewire\Forms\LoginForm;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Str;
 
 new #[Layout('layouts.guest')] class extends Component {
     public LoginForm $form;
@@ -13,15 +16,53 @@ new #[Layout('layouts.guest')] class extends Component {
      */
     public function login(): void
     {
+        // Rate limiting key based on user's NIM and IP address
+        $this->ensureIsNotRateLimited();
+
         $this->validate();
 
-        $this->form->authenticate();
+        try {
+            $this->form->authenticate();
 
-        Session::regenerate();
+            // Regenerate session and reset rate limiter on successful login
+            Session::regenerate();
 
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+            RateLimiter::clear($this->throttleKey());
+
+            $this->redirectIntended(default: route('dashboard', absolute: false), navigate: false);
+        } catch (\Exception $e) {
+            // Increment rate limiter on failure
+            RateLimiter::hit($this->throttleKey());
+
+            throw ValidationException::withMessages([
+                'form.nim' => __('These credentials do not match our records.'),
+            ]);
+        }
     }
-}; ?>
+
+    /**
+     * Ensure the login request is not rate limited.
+     */
+    public function ensureIsNotRateLimited(): void
+    {
+        if (RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+            throw ValidationException::withMessages([
+                'form.nim' => __('Too many login attempts. Please try again in :seconds seconds.', [
+                    'seconds' => RateLimiter::availableIn($this->throttleKey()),
+                ]),
+            ]);
+        }
+    }
+
+    /**
+     * Get the rate limiting throttle key for the request.
+     */
+    public function throttleKey(): string
+    {
+        return Str::lower($this->form->nim) . '|' . request()->ip();
+    }
+};
+?>
 
 <div>
     <!-- Session Status -->
@@ -32,7 +73,7 @@ new #[Layout('layouts.guest')] class extends Component {
             <!-- NIM -->
             <div>
                 <x-input-label for="nim" :value="__('NIM')" />
-                <input wire:model="form.nim" id="nim" class="form-input" type="text" name="nim" required
+                <input wire:model="form.nim" id="nim" class="form-input" type="number" name="nim" required
                     autofocus autocomplete="nim" />
                 <x-input-error :messages="$errors->get('form.nim')" class="mt-2" />
             </div>
@@ -67,7 +108,8 @@ new #[Layout('layouts.guest')] class extends Component {
             <button class="w-full btn-primary">
                 {{ __('Masuk sekarang') }}
             </button>
-            <p class="text-sm text-gray-500 mt-3 text-center">Belum punya akun? <a href="{{ route('register') }}" wire:navigate class="text-blue-600 font-medium hover:underline">Daftar sekarang</a></p>
+            <p class="text-sm text-gray-500 mt-3 text-center">Belum punya akun? <a href="{{ route('register') }}"
+                    wire:navigate class="text-blue-600 font-medium hover:underline">Daftar sekarang</a></p>
         </div>
     </form>
 </div>

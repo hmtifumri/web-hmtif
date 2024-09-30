@@ -110,6 +110,7 @@
                 </button>
             </div>
         </div>
+
         <div id="navbar"
             class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:flex sm:justify-center">
             <div class="navbar-content-container">
@@ -122,12 +123,10 @@
 
                 @php
                     $periode = App\Models\Periode::orderBy('periode', 'asc')->get();
-                    $periodeAktif = App\Models\Periode::where('status', 'aktif')->first();
                 @endphp
 
-                <div class="hs-dropdown [--trigger:hover]">
-                    <a href="{{ route('kepengurusan', str_replace('/', '-', $periodeAktif->periode)) }}"
-                        wire:navigate.hover type="button"
+                <div class="hs-dropdown relative [--trigger:hover]">
+                    <button type="button"
                         class="flex items-center {{ request()->routeIs('kepengurusan') ? 'text-navy2 dark:text-navy3 sm:border-b-2 sm:border-navy2 font-semibold' : 'font-medium text-zinc-600 dark:text-zinc-400 hover:text-navy2 dark:hover:text-navy2 ' }}">
                         Kepengurusan
                         @if (count($periode) > 1)
@@ -137,7 +136,7 @@
                                 <path d="m6 9 6 6 6-6" />
                             </svg>
                         @endif
-                    </a>
+                    </button>
 
                     @if (count($periode) > 1)
                         <div
@@ -145,8 +144,7 @@
                             <div
                                 class="hs-dropdown-open:ease-in hs-dropdown-open:opacity-100 hs-dropdown-open:scale-100 transition ease-out opacity-0 scale-95 duration-200 -mt-2.5 origin-top-left bg-white shadow-md rounded-lg p-2 dark:bg-neutral-800 dark:border dark:border-neutral-700 dark:divide-neutral-700">
                                 @foreach ($periode as $p)
-                                    <a class="{{ request()->is('kepengurusan/' . str_replace('/', '-', $p->periode)) ? 'bg-navy3 text-white dark:bg-navy' : 'text-gray-800 hover:bg-gray-100' }}
-        flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300"
+                                    <a class="{{ request()->is('kepengurusan/' . str_replace('/', '-', $p->periode)) ? 'bg-navy3 text-white dark:bg-navy' : 'text-gray-800 hover:bg-gray-100' }} flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300"
                                         href="{{ route('kepengurusan', str_replace('/', '-', $p->periode)) }}"
                                         wire:navigate>
                                         {{ $p->periode }}
@@ -156,10 +154,12 @@
                         </div>
                     @endif
                 </div>
-                {{-- <a class="{{ request()->routeIs('galeri') ? 'text-navy2 dark:text-navy3 sm:border-b-2 sm:border-navy2 font-semibold' : 'font-medium text-zinc-600 dark:text-zinc-400 hover:text-navy2 dark:hover:text-navy2 ' }}"
-                    href="{{ route('galeri') }}" wire:navigate.hover>Galeri</a> --}}
+
                 <a class="{{ request()->routeIs('artikel') ? 'text-navy2 dark:text-navy3 sm:border-b-2 sm:border-navy2 font-semibold' : 'font-medium text-zinc-600 dark:text-zinc-400 hover:text-navy2 dark:hover:text-navy2 ' }}"
                     href="{{ route('artikel') }}" wire:navigate.hover>Artikel</a>
+
+                <a class="{{ request()->routeIs('galeri') ? 'text-navy2 dark:text-navy3 sm:border-b-2 sm:border-navy2 font-semibold' : 'font-medium text-zinc-600 dark:text-zinc-400 hover:text-navy2 dark:hover:text-navy2 ' }}"
+                    href="{{ route('galeri') }}" wire:navigate.hover>Galeri</a>
 
                 @if (Auth::check())
                     <a class="font-medium text-zinc-600 dark:text-zinc-400 hover:text-navy2 dark:hover:text-navy2"

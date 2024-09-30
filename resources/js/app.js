@@ -3,32 +3,7 @@ import "preline";
 
 document.addEventListener("livewire:navigated", function () {
     HSStaticMethods.autoInit();
-
-    const navbar = document.getElementById('navbar');
-            const navbarContentContainer = navbar.querySelector('.navbar-content-container');
-
-            window.addEventListener('scroll', function() {
-                let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-
-                if (currentScroll > 300) {
-                    navbarContentContainer.classList.add('navbar-scrolled');
-                }
-
-                if (currentScroll <= 350) {
-                    // When at the top, ensure the scrolled class is removed
-                    navbarContentContainer.classList.remove('navbar-scrolled');
-                }
-
-                lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Reset the last scroll position
-            });
-
-    // AOS.init({
-    //     once: true,
-    //     duration: 800
-    // });
 });
-
-
 
 
 const HSThemeAppearance = {

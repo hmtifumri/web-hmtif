@@ -42,15 +42,12 @@
                 <?php
                 $misi = [
                     [
-                        'number' => 1,
                         'text' => 'Menciptakan iklim organisasi yang dinamis dan progresif',
                     ],
                     [
-                        'number' => 2,
                         'text' => 'Mengoptimalkan kepengurusan hmtif sebagai wadah terjalinnya komunikasi yang produktif dalam ruang lingkup internal HMTIF maupun dengan pihak eksternal',
                     ],
                     [
-                        'number' => 3,
                         'text' => 'Membangkitkan kualitas pengurus HMTIF yang adaptif dan inovatif',
                     ],
                 ];
@@ -62,7 +59,7 @@
                         <div class="bg-[#486DA3]/15 h-full rounded-3xl hover:bg-navy2 duration-500 dark:bg-transparent dark:bg-gradient-to-br dark:from-zinc-800/80 dark:to-zinc-900 py-10 px-8 group">
                             <div class="flex items-center justify-between gap-4">
                                 <div class="w-14 h-14 flex items-center justify-center group-hover:bg-navylight dark:group-hover:bg-navy duration-300 rounded-full bg-[#395682] text-3xl font-plusjakartasans font-extrabold text-white">
-                                    <?= $item['number'] ?>
+                                    <?= $i + 1 ?>
                                 </div>
                                 <div>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 text-navy dark:text-zinc-500 group-hover:text-white duration-300">
@@ -105,4 +102,12 @@
             </p>
         </div>
     </section>
+
+    {{-- <section class="pb-10 lg:pb-24 pt-14">
+        <div class="container mx-auto px-5">
+            <div class="text-center pb-14">
+                <h1 class="title uppercase max-w-3xl mx-auto" data-aos="fade-up">Pembina HM-TIF</h1>
+            </div>
+        </div>
+    </section> --}}
 </x-main-layout>

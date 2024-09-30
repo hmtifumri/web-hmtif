@@ -23,6 +23,7 @@ export default {
                 navy2: "#486DA3",
                 navy3: "#5D84CA",
                 navylight: "#6e90c2",
+                background: "#f0f8ff",
             },
         },
     },

@@ -19,11 +19,11 @@
                 @php
                     $division = \App\Models\Divisi::find($divisionId);
                 @endphp
-                <div class="mb-6 last-of-type:mb-0 overflow-x-auto"
-                    wire:key='{{ $divisionId }}'>
+                <div class="mb-6 last-of-type:mb-0 overflow-x-auto" wire:key='{{ $divisionId }}'>
                     <div>
                         <div class="mb-2">
-                            <h2 class="text-xl font-semibold capitalize">{{ $division->singkatan }}</h2>
+                            <h2 class="text-xl font-semibold capitalize">
+                                {{ str_replace('-', ' ', $division->singkatan) }}</h2>
                         </div>
                         <div class="p-1.5 min-w-full inline-block align-middle">
                             <div class="border rounded-lg border-gray-300 overflow-hidden">
@@ -32,6 +32,9 @@
                                         <table class="min-w-full divide-y divide-gray-200">
                                             <thead>
                                                 <tr>
+                                                    <th scope="col"
+                                                        class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
+                                                        Gambar</th>
                                                     <th scope="col"
                                                         class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
                                                         Nama</th>
@@ -53,7 +56,19 @@
                                             </thead>
                                             <tbody class="divide-y divide-gray-200">
                                                 @foreach ($users as $user)
-                                                    <tr class="hover:bg-blue-100">
+                                                    <tr class="hover:bg-gray-200">
+                                                        <td
+                                                            class="!w-10">
+                                                            @if ($user->gambar)
+                                                                <img src="{{ asset($user->gambar) }}"
+                                                                    alt="{{ $user->name }}"
+                                                                    class="w-10 h-10 object-cover rounded-full" loading="lazy">
+                                                            @else
+                                                                <img src="{{ asset('assets/img/no-photo.png') }}"
+                                                                    alt="{{ $user->name }}"
+                                                                    class="w-10 h-10 object-cover rounded-full">
+                                                            @endif
+                                                        </td>
                                                         <td
                                                             class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                                                             {{ $user->name }}

@@ -3,6 +3,7 @@
         <select wire:model.live="sortBy" class="ml-3 form-input !w-auto">
             <option value="latest">Terbaru</option>
             <option value="oldest">Terlama</option>
+            <option value="popular">Populer</option>
         </select>
         <select wire:model.live="sortByYear" class="ml-3 form-input !w-auto">
             <option value="all">Semua</option>
@@ -20,8 +21,8 @@
                 $limitedText = implode(' ', $limitedWords);
             @endphp
 
-            <x-article-card :image="$article->image" :created_at="$article->created_at->format('d F Y')" :categorySlug="$article->category->slug" :categoryName="$article->category->category" :slug="$article->slug"
-                :title="$article->title" :excerpt="$limitedText" :bodyText="$article->body" />
+            <x-article-card :image="$article->image" :created_at="$article->created_at->format('d M Y')" :categorySlug="$article->category->slug" :categoryName="$article->category->category" :slug="$article->slug"
+                :title="$article->title" :excerpt="$limitedText" :bodyText="$article->body" :views="$article->views" />
         @endforeach
     </div>
 

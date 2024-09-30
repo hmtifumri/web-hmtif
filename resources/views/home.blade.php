@@ -4,7 +4,8 @@
             new Splide("#banner", {
                 width: "100vw",
                 type: "loop",
-                interval: 4000,
+                
+                interval: 4500,
                 speed: 1000,
                 autoplay: "play",
                 arrows: true,
@@ -58,6 +59,35 @@
             });
 
             splideJalaNusa.mount(window.splide.Extensions);
+
+            new Splide("#proker", {
+                width: "100vw",
+                interval: 4500,
+                speed: 1000,
+                autoplay: "play",
+                arrows: true,
+                pagination: false,
+                gap: 30,
+                perPage: 4,
+                autoScroll: {
+                    pauseOnHover: false,
+                    speed: 1,
+                },
+                breakpoints: {
+                    460: {
+                        perPage: 1,
+                    },
+                    960: {
+                        perPage: 2,
+                    },
+                    1200: {
+                        perPage: 3,
+                    },
+                    1800: {
+                        perPage: 4,
+                    },
+                }
+            }).mount();
         </script>
     @endpush
 
@@ -67,7 +97,7 @@
         <div class="container px-5 mx-auto">
             <div class="text-center">
                 <h1
-                    class="text-navy2 dark:text-navy3 font-black text-[12vw] sm:text-[80px] md:text-[100px] lg:text-[140px] xl:text-[160px] flex justify-center leFadeIn font-plusjakartasans">
+                    class="text-navy2 dark:text-navy3 font-black text-[12vw] sm:text-[80px] md:text-[100px] lg:text-[140px] xl:text-[180px] flex justify-center leFadeIn font-plusjakartasans">
                     <span>H</span><span>M</span><span>-</span><span>T</span><span>I</span><span>F</span><span
                         class="ml-4 lg:ml-8"></span><span>U</span><span>M</span><span>R</span><span>I</span>
                 </h1>
@@ -86,7 +116,7 @@
                     <ul class="splide__list">
                         @foreach ($banners as $i => $banner)
                             <li class="splide__slide rounded-3xl">
-                                <img src="{{ asset($banner->image) }}" class="w-full rounded-3xl"
+                                <img src="{{ asset($banner->image) }}" class="w-full rounded-2xl md:rounded-3xl"
                                     alt="banner-{{ $i }}">
                             </li>
                         @endforeach
@@ -127,10 +157,10 @@
                     </div>
                 </div>
                 <div
-                    class="absolute top-0 left-0 bottom-0 w-14 sm:w-[120px] bg-gradient-to-r from-[#EBF0F9] dark:from-zinc-950 to-transparent">
+                    class="absolute top-0 left-0 bottom-0 w-14 sm:w-[120px] bg-gradient-to-r from-background dark:from-zinc-950 to-transparent">
                 </div>
                 <div
-                    class="absolute top-0 right-0 bottom-0 w-14 sm:w-[120px] bg-gradient-to-l from-[#EBF0F9] dark:from-zinc-950 to-transparent">
+                    class="absolute top-0 right-0 bottom-0 w-14 sm:w-[120px] bg-gradient-to-l from-background dark:from-zinc-950 to-transparent">
                 </div>
             </div>
         </div>
@@ -235,14 +265,14 @@
     {{-- end kepengurusan --}}
 
     {{-- galeri --}}
-    {{-- <section class="pb-10 lg:pb-24 pl-5">
+    <section class="pb-10 lg:pb-24 pl-5 lg:pl-10">
         <div class="bg-white dark:bg-zinc-900 px-6 py-8 md:p-10 rounded-l-3xl">
             <div class="container mx-auto px-5">
                 <div class="md:flex items-center justify-between gap-4 mb-10 md:mb-14">
                     <div class="sm:flex md:block justify-between items-center">
                         <h1 class="title uppercase max-w-3xl">galeri terbaru</h1>
                         <div class="mt-3 sm:mt-0 md:mt-3 text-sm sm:text-base">
-                            <a href=""
+                            <a href="{{ route('galeri') }}" wire:navigate
                                 class="inline-flex items-center gap-2 border-b text-navy2 font-semibold border-b-navy2 group">
                                 See More
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -261,32 +291,30 @@
                         Muhammadiyah Riau</p>
                 </div>
                 <div class="grid lg:grid-cols-2 gap-4">
-                    <div class="col-span-2 lg:col-span-1">
-                        <img src="{{ asset('assets/img/banner/1.png') }}" class="rounded-3xl" alt="">
-                    </div>
-                    <div class="col-span-2 lg:col-span-1">
-                        <img src="{{ asset('assets/img/banner/1.png') }}" class="rounded-3xl" alt="">
-                    </div>
+                    @foreach ($prokerImages as $i => $image)
+                        @if ($i < 2)
+                            <div class="col-span-2 lg:col-span-1">
+                                <img src="{{ asset($image->image) }}"
+                                    class="rounded-3xl max-h-[500px] w-full object-cover h-full" alt="">
+                            </div>
+                        @endif
+                    @endforeach
                     <div class="col-span-2">
                         <div class="grid lg:grid-cols-3 gap-4">
-                            <div class="col-span-1">
-                                <img src="{{ asset('assets/img/banner/1.png') }}" class="rounded-3xl"
-                                    alt="">
-                            </div>
-                            <div class="col-span-1">
-                                <img src="{{ asset('assets/img/banner/1.png') }}" class="rounded-3xl"
-                                    alt="">
-                            </div>
-                            <div class="col-span-1">
-                                <img src="{{ asset('assets/img/banner/1.png') }}" class="rounded-3xl"
-                                    alt="">
-                            </div>
+                            @foreach ($prokerImages as $i => $image)
+                                @if ($i >= 2 && $i < 5)
+                                    <div class="col-span-1">
+                                        <img src="{{ asset($image->image) }}"
+                                            class="rounded-3xl h-[350px] w-full object-cover" alt="">
+                                    </div>
+                                @endif
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section> --}}
+    </section>
     {{-- end galeri --}}
 
 
@@ -311,14 +339,15 @@
                             $limitedText = implode(' ', $limitedWords);
                         @endphp
 
-                            <x-article-card :image="$article->image" :created_at="$article->created_at->format('d F Y')" :categorySlug="$article->category->slug" :categoryName="$article->category->category"
-                                :slug="$article->slug" :title="$article->title" :excerpt="$limitedText" :bodyText="$article->body" />
+                        <x-article-card :image="$article->image" :created_at="$article->created_at->format('d M Y')" :categorySlug="$article->category->slug" :categoryName="$article->category->category"
+                            :slug="$article->slug" :title="$article->title" :excerpt="$limitedText" :bodyText="$article->body" :views="$article->views" />
                     @endforeach
                 </div>
             </div>
         </div>
     </section>
     {{-- end artikel --}}
+
 
     <section class="pb-10 lg:pb-24">
         <div class="container px-5 mx-auto">
@@ -349,9 +378,59 @@
     </section>
 
 
+    {{-- Proker --}}
+    <section class="pb-10 lg:pb-24">
+        <div class="container mx-auto px-5">
+            <div class="text-center mb-10 md:mb-14">
+                <h1 class="title uppercase max-w-3xl mx-auto" data-aos="zoom-in-up">proker terbaru</h1>
+                <p class="mt-5 text-zinc-400 dark:text-zinc-500 text-sm md:text-base max-w-2xl mx-auto"
+                    data-aos="zoom-in-up">
+                    Ini adalah proker terbaru yang dilakukan oleh HM-TIF UMRI, yang bertujuan untuk meningkatkan
+                    kualitas dan keterampilan anggota dalam pengembangan diri.
+                </p>
+            </div>
+            @empty(!$proker->count())
+                <div class="mt-10 mb-5" data-aos="zoom-in-up">
+                    <div id="proker" class="splide" aria-label="Proker">
+                        <div class="splide__track">
+                            <ul class="splide__list">
+                                @foreach ($proker as $i => $item)
+                                    <li class="splide__slide rounded-2xl">
+                                        <div>
+                                            <div>
+                                                <img src="{{ asset($item->gambar) }}" alt="{{ $item->nama }}"
+                                                    class="rounded-2xl">
+                                            </div>
+                                            <div class="p-4 pl-0">
+                                                <p class="text-gray-500 font-medium text-sm">
+                                                    {{ \Carbon\Carbon::parse($item->tanggal_mulai)->translatedFormat('d M Y') }}
+                                                </p>
+                                                <a class="hover:text-navy dark:text-navy3 duration-300"
+                                                    href="{{ route('detail.proker', [str_replace('/', '-', $periode->periode), $item->divisi_id == null ? 'semua-divisi' : $item->divisi->singkatan, $item->slug]) }}"
+                                                    wire:navigate>
+                                                    <h3
+                                                        class="font-bold font-plusjakartasans text-lg line-clamp-2 capitalize">
+                                                        {{ $item->nama }}
+                                                    </h3>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endempty
+        </div>
+    </section>
+    {{-- end Proker --}}
+
+
     {{-- call to action --}}
 
-    <section class="pb-10 lg:pb-24">
+    {{-- <section class="pb-10 lg:pb-24">
         <div class="container mx-auto px-5">
             <div class="bg-navy2 dark:bg-navy py-14 px-8 rounded-3xl" data-aos="fade-up">
                 <h1
@@ -377,7 +456,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     {{-- end call to action --}}
 

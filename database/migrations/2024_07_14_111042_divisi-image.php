@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('divisi-image', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('divisi_id')->constrained('divisi')->onUpdate('cascade')->onDelete('cascade');
             $table->string('image');
+            $table->text('deskripsi')->nullable();
+            $table->foreignId('divisi_id')->constrained('divisi')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('periode_id')->constrained('periode')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });

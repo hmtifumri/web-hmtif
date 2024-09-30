@@ -13,8 +13,11 @@ class ArticleController extends Controller
         if (Auth::user()->jabatan != 'admin' && Auth::user()->divisi_id != 7) {
             abort(404);
         }
+
+        $articles = Article::latest()->get();
         return view('dashboard.artikel', [
             'title' => 'Buat Artikel',
+            'articles' => $articles
         ]);
     }
 
