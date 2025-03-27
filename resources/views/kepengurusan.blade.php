@@ -18,7 +18,7 @@
                                     class="absolute top-full -translate-y-16 2xl:-translate-y-20 left-1/2 -translate-x-1/2 group-hover:top-1/2 w-full group-hover:-translate-y-1/2 duration-500 ease-in-out">
                                     <div class="text-center">
                                         <h3
-                                            class="text-xl text-white px-3 font-semibold font-plusjakartasans capitalize">
+                                            class="text-base lg:text-xl text-white px-3 font-semibold font-plusjakartasans capitalize">
                                             {{ $pembina->nama }}
                                         </h3>
                                         <p class="text-white capitalize group-hover:mt-2 duration-500 ease-in-out">

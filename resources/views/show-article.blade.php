@@ -31,7 +31,7 @@
 
     <x-slot name="title">{{ $title }}</x-slot>
 
-    <article class="pb-10 lg:pb-24 lg:pt-14">
+    <article class="pb-10 lg:pb-24">
         <div class="container mx-auto px-5">
             <div class="flex justify-center mt-10">
                 <a class=" text-zinc-500 dark:text-zinc-400 group mb-8 lg:mb-12 inline-flex items-center gap-2 flex-wrap"

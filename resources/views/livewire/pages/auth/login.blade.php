@@ -73,8 +73,8 @@ new #[Layout('layouts.guest')] class extends Component {
             <!-- NIM -->
             <div>
                 <x-input-label for="nim" :value="__('NIM')" />
-                <input wire:model="form.nim" id="nim" class="form-input" type="number" name="nim" required
-                    autofocus autocomplete="nim" />
+                <input wire:model="form.nim" id="nim" class="form-input" type="text" name="nim" required
+                    autofocus autocomplete="off" />
                 <x-input-error :messages="$errors->get('form.nim')" class="mt-2" />
             </div>
 

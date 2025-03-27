@@ -12,7 +12,7 @@ use Livewire\Form;
 
 class LoginForm extends Form
 {
-    #[Validate('required|numeric')]
+    #[Validate('required')]
     public string $nim = '';
 
     #[Validate('required|string')]

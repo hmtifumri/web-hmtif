@@ -30,7 +30,7 @@ class Edit extends Component
     protected $messages = [
         'required' => ':attribute harus diisi',
         'image' => ':attribute harus berupa gambar',
-        'max' => ':attribute tidak boleh lebih dari :max karakter',
+        'max' => ':attribute tidak boleh lebih dari :max KB',
         'image.max' => 'Ukuran gambar tidak boleh lebih dari :max kilobyte',
         'date' => ':attribute harus berupa tanggal',
     ];
@@ -117,6 +117,11 @@ class Edit extends Component
         } catch (\Throwable $th) {
             return redirect()->route('dashboard.proker', str_replace('/', '-', $this->periode))->with('error', 'Terjadi kesalahan saat memperbarui proker: ' . $th->getMessage());
         }
+    }
+
+    public function deleteImage($index)
+    {
+        unset($this->fotoKegiatan[$index]);
     }
 
     public function deleteExistingImage($id)

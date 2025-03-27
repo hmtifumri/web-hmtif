@@ -157,9 +157,6 @@ table tbody td {
     @apply px-6 py-3 font-semibold text-sm;
 }
 
-trix-editor {
-    @apply min-h-[300px] bg-white border border-gray-200 rounded-lg text-sm focus:ring-1 focus:border-blue-500 focus:ring-blue-500 !important;
-}
 
 .artikel-body {
     @apply text-zinc-700 dark:text-zinc-400;
@@ -205,6 +202,10 @@ button[data-trix-action="attachFiles"] {
 
 span[data-trix-button-group="file-tools"] {
     @apply !hidden;
+}
+
+trix-editor {
+    @apply min-h-[300px] bg-white border border-gray-200 rounded-lg text-sm focus:ring-1 focus:border-blue-500 focus:ring-blue-500 !important;
 }
 
 trix-editor ul,

@@ -188,7 +188,7 @@ new #[Layout('layouts.guest')] class extends Component {
                 <div>
                     <x-input-label for="nim" :value="__('NIM')" />
                     <input wire:model="nim" id="nim" class="form-input" type="text" name="nim" required
-                        autofocus autocomplete="nim" wire:model.blur='nim' />
+                        autofocus autocomplete="off" wire:model.blur='nim' />
                     @error('nim')
                         <span class="error-msg">{{ $message }}</span>
                     @enderror

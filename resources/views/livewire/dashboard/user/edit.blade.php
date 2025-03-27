@@ -221,7 +221,7 @@
                     type: 'image/jpeg'
                 });
                 @this.upload('croppedImage', file, (uploadedFilename) => {
-                    // Success callback
+                // Success callback
                     document.getElementById('cropModal').classList.add('hidden');
                 }, () => {
                     // Error callback

@@ -25,7 +25,7 @@
                 arrows: false,
                 pagination: false,
                 autoScroll: {
-                    speed: 1,
+                    speed: 0.6,
                 },
                 breakpoints: {
                     1300: {
@@ -319,7 +319,7 @@
 
 
     {{-- artikel --}}
-    <section class="pb-10 lg:pb-24">
+    <section class="pb-10 lg:pb-32">
         <div class="container mx-auto px-5">
             <div class="text-center mb-10 md:mb-14">
                 <h1 class="title uppercase max-w-3xl mx-auto" data-aos="zoom-in-up">artikel terbaru</h1>
@@ -349,7 +349,7 @@
     {{-- end artikel --}}
 
 
-    <section class="pb-10 lg:pb-24">
+    <section class="pb-10 lg:pb-32">
         <div class="container px-5 mx-auto">
             <div class="relative">
                 <div id="hmtif-slider" class="splide" aria-label="HM-TIF UMRI">
@@ -357,10 +357,10 @@
                         <ul class="splide__list">
                             <li class="splide__slide !mr-5">
                                 <div
-                                    class="text-5xl font-black lg:text-[85px] text-[#cdd4e6] dark:text-zinc-700  font-plusjakartasans select-none">
+                                    class="text-5xl font-semibold lg:text-[120px] text-[#cdd4e6] dark:text-zinc-700  font-sans select-none flex items-center justify-center gap-x-5">
                                     HM-TIF UMRI
-                                    <span class="text-navy2 dark:text-navy select-none inline-block">
-                                        ~
+                                    <span class="select-none block">
+                                        <svg class="fill-navy2 dark:fill-navy size-20" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M214.86,180.12a8,8,0,0,1-11,2.74L136,142.13V216a8,8,0,0,1-16,0V142.13L52.12,182.86a8,8,0,1,1-8.23-13.72L112.45,128,43.89,86.86a8,8,0,1,1,8.23-13.72L120,113.87V40a8,8,0,0,1,16,0v73.87l67.88-40.73a8,8,0,1,1,8.23,13.72L143.55,128l68.56,41.14A8,8,0,0,1,214.86,180.12Z"></path></svg>
                                     </span>
                                 </div>
                             </li>
@@ -368,10 +368,10 @@
                     </div>
                 </div>
                 <div
-                    class="absolute left-0 bottom-0 top-0 bg-gradient-to-r from-[#EBF0F9] via-[#EBF0F9]/70 to-transparent dark:from-zinc-950 dark:via-zinc-950/70 dark:to-transparent w-20 sm:w-32 lg:w-56 h-full">
+                    class="absolute left-0 bottom-0 top-0 bg-gradient-to-r from-[#f0f8ff] via-[#f0f8ff]/70 to-transparent dark:from-zinc-950 dark:via-zinc-950/70 dark:to-transparent w-20 sm:w-32 lg:w-56 h-full">
                 </div>
                 <div
-                    class="absolute right-0 bottom-0 top-0 bg-gradient-to-l from-[#EBF0F9] via-[#EBF0F9]/70 to-transparent dark:from-zinc-950 dark:via-zinc-950/70 dark:to-transparent w-20 sm:w-32 lg:w-56 h-full">
+                    class="absolute right-0 bottom-0 top-0 bg-gradient-to-l from-[#f0f8ff] via-[#f0f8ff]/70 to-transparent dark:from-zinc-950 dark:via-zinc-950/70 dark:to-transparent w-20 sm:w-32 lg:w-56 h-full">
                 </div>
             </div>
         </div>
