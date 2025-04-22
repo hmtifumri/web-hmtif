@@ -184,7 +184,6 @@ new #[Layout('layouts.guest')] class extends Component {
         </div>
         <form wire:submit.prevent="register">
             <div class="grid sm:grid-cols-2 gap-4">
-                <!-- NIM -->
                 <div>
                     <x-input-label for="nim" :value="__('NIM')" />
                     <input wire:model="nim" id="nim" class="form-input" type="text" name="nim" required
@@ -192,9 +191,8 @@ new #[Layout('layouts.guest')] class extends Component {
                     @error('nim')
                         <span class="error-msg">{{ $message }}</span>
                     @enderror
-                </div>
+                </div> 
 
-                <!-- Name -->
                 <div>
                     <x-input-label for="name" :value="__('Nama')" />
                     <input wire:model="name" id="name" class="form-input" type="text" name="name" required
@@ -204,7 +202,6 @@ new #[Layout('layouts.guest')] class extends Component {
                     @enderror
                 </div>
 
-                <!-- Email Address -->
                 <div>
                     <x-input-label for="email" :value="__('Email')" />
                     <input wire:model="email" id="email" class="form-input" type="email" name="email" required
@@ -214,7 +211,6 @@ new #[Layout('layouts.guest')] class extends Component {
                     @enderror
                 </div>
 
-                <!-- Phone -->
                 <div>
                     <x-input-label for="phone" :value="__('No WA/HP')" />
                     <input wire:model="phone" id="phone" class="form-input" type="text" name="phone"
@@ -224,7 +220,6 @@ new #[Layout('layouts.guest')] class extends Component {
                     @enderror
                 </div>
 
-                <!-- Divisi -->
                 <div>
                     <x-input-label for="divisi" :value="__('Divisi')" />
                     <select wire:model="divisi" id="divisi" class="form-input" wire:model.change='divisi'>
@@ -238,7 +233,6 @@ new #[Layout('layouts.guest')] class extends Component {
                     @enderror
                 </div>
 
-                <!-- Jabatan -->
                 <div>
                     <x-input-label for="jabatan" :value="__('Jabatan')" wire:model.change="jabatan" />
                     <select wire:model="jabatan" id="jabatan" class="form-input">
@@ -259,7 +253,6 @@ new #[Layout('layouts.guest')] class extends Component {
                 </div>
             </div>
 
-            <!-- Gender -->
             <div class="my-4">
                 <x-input-label for="gender" :value="__('Jenis Kelamin')" />
                 <div class="flex items-center">
@@ -280,7 +273,6 @@ new #[Layout('layouts.guest')] class extends Component {
             </div>
 
             <div class="grid sm:grid-cols-2 gap-4">
-                <!-- Password -->
                 <div>
                     <x-input-label for="password" :value="__('Password')" />
                     <input wire:model="password" id="password" class="form-input" type="password" name="password"
@@ -290,7 +282,6 @@ new #[Layout('layouts.guest')] class extends Component {
                     @enderror
                 </div>
 
-                <!-- Confirm Password -->
                 <div>
                     <x-input-label for="password_confirmation" :value="__('Konfirmasi Password')" />
                     <input wire:model="password_confirmation" id="password_confirmation" class="form-input"
